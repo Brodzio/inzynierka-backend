@@ -9,4 +9,8 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
+  @Get('/token')
+  getToken(): any {
+    return JSON.parse('{"token":"1234567890abcdefghij"}');
+  }
 }
