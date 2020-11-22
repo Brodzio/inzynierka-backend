@@ -1,12 +1,14 @@
-import { StawkaVatModule } from './entities/stawka-vat/stawka-vat.module';
-import { StawkaVat } from './entities/stawka-vat/stawka-vat.entity';
+import { StawkaVatModule } from './DTOObjects/stawka-vat/stawka-vat.module';
+import { StawkaVat } from './DTOObjects/stawka-vat/stawka-vat.entity';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
 import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { KlienciModule } from './entities/klienci/klienci.module';
-import { Klienci } from './entities/klienci/klienci.entity';
+import { KlienciModule } from './DTOObjects/klienci/klienci.module';
+import { Klienci } from './DTOObjects/klienci/klienci.entity';
+import { AuthModule } from './auth/auth.module';
+import { Pracownik } from './DTOObjects/pracownik/pracownik.entity';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -16,11 +18,12 @@ import { Klienci } from './entities/klienci/klienci.entity';
       username: 'admin',
       password: '0000',
       database: 'mydb',
-      entities: [StawkaVat, Klienci],
+      entities: [StawkaVat, Klienci, Pracownik],
       synchronize: true,
     }),
     StawkaVatModule,
-    KlienciModule
+    KlienciModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],
