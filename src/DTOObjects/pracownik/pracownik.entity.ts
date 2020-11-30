@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -27,7 +28,7 @@ export class Pracownik {
     @PrimaryGeneratedColumn()
     id_pracownik:number;
 
-    @Column()
+    @Column({ length: 500 })
     imie: string;
 
     @Column()
@@ -45,9 +46,11 @@ export class Pracownik {
     @Column()
     email: string;
 
+    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
     data_zatrudnienia: Date;
 
+    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
     data_zwolnienia: Date;
 

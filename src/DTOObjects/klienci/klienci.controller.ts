@@ -27,7 +27,7 @@ export class KlienciController {
   createOne(@Body() body: any): any {
       console.log(body);
       let klient: Klienci = new Klienci('Bartek', 'Brod', 'Bar', 'Bro', 'Comarch', '0000', '0000', '123456789', 'abc@abc.pl', '0000');
-      this.klienciService.createOne(body);
+      this.klienciService.createOne(klient);
     return JSON.parse('{"odpowiedz":"sucess"}');
   }
 }
