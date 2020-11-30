@@ -17,9 +17,8 @@ export class PracownikService {
   }
 
   @UseInterceptors(ClassSerializerInterceptor)
-  findOne(id: string): Promise<Pracownik> {
-    console.log('fsdfds');
-    return this.pracownikRepository.findOne(id);
+  findOne(username: string): Promise<Pracownik> {
+    return this.pracownikRepository.findOne({where: {'login':username}});
   }
 
   async remove(id: string): Promise<void> {

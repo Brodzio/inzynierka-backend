@@ -9,11 +9,10 @@ export class AuthService {
 
     }
 
-    async validateUser(login: string, password: string): Promise<any> {
-        console.log('fsdfds');
-        const user = await this.pracownikService.findOne(login);
+    async validateUser(username: string, password: string): Promise<any> {
+        const user = await this.pracownikService.findOne(username);
         console.log(user);
-        if  (user.login == login && user.haslo == password) {
+        if  (user.login == username && user.haslo == password) {
             const { haslo, ...result } = user;
             return result;
         }
