@@ -3,7 +3,7 @@ import { LocalStrategy } from './local.strategy';
 import { Module } from '@nestjs/common';
 import { PassportModule } from '@nestjs/passport';
 import { AuthService } from './auth.service';
-import { PracownikModule } from 'src/DTOObjects/pracownik/pracownik.module';
+import { PracownikModule } from 'src/modules/pracownik/pracownik.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 

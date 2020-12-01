@@ -1,4 +1,4 @@
-import { PracownikService } from './../DTOObjects/pracownik/pracownik.service';
+import { PracownikService } from '../modules/pracownik/pracownik.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 
