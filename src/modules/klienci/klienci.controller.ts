@@ -1,33 +1,22 @@
 import { KlienciService } from './klienci.service';
-import { Body, Controller, Get, Param, Post, Req, Res } from '@nestjs/common';
-import { Klienci } from './klienci.entity';
-import { Response } from 'express';
-@Controller('klienci')
+import { Body, Controller ,Post , ValidationPipe } from '@nestjs/common';
+import { CreateKlientDto } from './dto/create-klient.dto';
+import { AuthCredentialsDto } from './dto/auth-credentials.dto';
+
+@Controller('auth')
 export class KlienciController {
 
-    constructor(private klienciService: KlienciService){
-
-    }
+  constructor(
+    private klienciService: KlienciService
+    ) {}
     
-    @Get()
-    findAll(): string {
-        return 'This action returns all cats';
-    }
+  @Post('/signup')
+  signUp(@Body(ValidationPipe) createKlientDto: CreateKlientDto): Promise<void> {
+    return this.klienciService.signUp(createKlientDto);
+  }
 
-  @Get(':id')
-    findOne(@Param('id') id: string,@Res() res: Response): any {
-        this.klienciService.findOne(id).then( klient =>{
-            console.log(klient);
-            res.send(klient);
-        });
-    }
-
-
-  @Post('/create')
-  createOne(@Body() body: any): any {
-      console.log(body);
-      let klient: Klienci = new Klienci('Bartek', 'Brod', 'Bar', 'Bro', 'Comarch', '0000', '0000', '123456789', 'abc@abc.pl', '0000');
-      this.klienciService.createOne(klient);
-    return JSON.parse('{"odpowiedz":"sucess"}');
+  @Post('/signin')
+  signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
+    return this.klienciService.signIn(authCredentialsDto);
   }
 }

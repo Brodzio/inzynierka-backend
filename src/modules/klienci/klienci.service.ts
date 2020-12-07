@@ -1,29 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Klienci } from './klienci.entity';
+import { KlienciRepository } from './klient.repository';
+import { CreateKlientDto } from './dto/create-klient.dto';
+import { JwtService } from '@nestjs/jwt';
+import { JwtPayLoad } from './jwt-payload.interface';
+import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 
 @Injectable()
 export class KlienciService {
 
   constructor(
-    @InjectRepository(Klienci)
-    private klienciRepository: Repository<Klienci>,
+    @InjectRepository(KlienciRepository)
+    private klienciRepository: KlienciRepository,
+    private jwtService: JwtService,
   ) {}
 
-  findAll(): Promise<Klienci[]> {
-    return this.klienciRepository.find();
+  async signUp(createKlientDto: CreateKlientDto): Promise<void> {
+    return this.klienciRepository.signUp(createKlientDto);
   }
 
-  findOne(id: string): Promise<Klienci> {
-    return this.klienciRepository.findOne(id);
-  }
+  async signIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
+    const login = await this.klienciRepository.validateUserPassword(authCredentialsDto);
 
-  async remove(id: string): Promise<void> {
-    await this.klienciRepository.delete(id);
-  }
+    if(!login) {
+      throw new UnauthorizedException('Invalid credentials!');
+    }
 
-  async createOne( klienci: Klienci) {
-    this.klienciRepository.save(klienci);
+    const payload: JwtPayLoad = { login };
+    const accessToken = await this.jwtService.sign(payload);
+
+    return { accessToken };
   }
 }
