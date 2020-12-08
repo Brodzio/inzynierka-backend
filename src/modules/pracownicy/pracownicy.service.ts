@@ -2,7 +2,6 @@ import { ClassSerializerInterceptor, Injectable, UnauthorizedException, UseInter
 import { InjectRepository } from '@nestjs/typeorm';
 import { PracownicyRepository } from './pracownicy.repository';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayLoad } from '../../../dist/auth/jwt-payload.interface';
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
 import { Pracownicy } from './pracownicy.entity';
 

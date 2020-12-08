@@ -48,16 +48,16 @@ export class KlienciRepository extends Repository<Klienci> {
         }
     }
 
-    // async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<string> {
-    //     const { login, haslo } = authCredentialsDto;
-    //     const user = await this.findOne({ login });
+    async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<string> {
+         const { login, haslo } = authCredentialsDto;
+        const user = await this.findOne({ login });
 
-    //     if (user && await user.validatePassword(haslo)) {
-    //         return user.login;
-    //     } else {
-    //         return null;
-    //     }
-    // }
+        if (user && await user.validatePassword(haslo)) {
+            return user.login;
+        } else {
+            return null;
+        }
+    }
 
     private async hashPassword(password: string, salt: string) {
         return bcrypt.hash(password, salt); 

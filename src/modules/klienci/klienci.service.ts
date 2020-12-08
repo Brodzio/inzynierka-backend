@@ -18,16 +18,24 @@ export class KlienciService {
     return this.klienciRepository.signUp(createKlientDto);
   }
 
-  // async signIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-  //   const login = await this.klienciRepository.validateUserPassword(authCredentialsDto);
+  /*async signIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
+    const login = await this.klienciRepository.validateUserPassword(authCredentialsDto);
 
-  //   if(!login) {
-  //     throw new UnauthorizedException('Invalid credentials!');
-  //   }
+    if(!login) {
+     throw new UnauthorizedException('Invalid credentials!');
+   }
 
-  //   const payload: JwtPayLoad = { login };
-  //   const accessToken = await this.jwtService.sign(payload);
+    const payload: JwtPayLoad = { login };
+   const accessToken = await this.jwtService.sign(payload);
 
-  //   return { accessToken };
-  // }
+   return { accessToken };
+ }*/
+
+  async validateUser(authCredentialsDto: AuthCredentialsDto): Promise<boolean> {
+    const login = await this.klienciRepository.validateUserPassword(authCredentialsDto);
+    if(login){
+      return true;
+    }
+    return false;
+  }
 }

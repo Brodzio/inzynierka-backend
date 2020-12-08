@@ -10,5 +10,6 @@ import { KlienciRepository } from './klient.repository';
   ],
   controllers: [KlienciController],
   providers: [KlienciService],
+  exports: [KlienciService]
   })
 export class KlienciModule {}

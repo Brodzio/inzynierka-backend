@@ -1,3 +1,4 @@
+import { AuthController } from './auth.controller';
 import { Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
@@ -11,7 +12,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature([KlienciRepository]), 
+        KlienciModule,
         PassportModule, 
         JwtModule.register({
             secret: 'topSecret51',
@@ -20,6 +21,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
             },
         }),
     ],
+    controllers: [AuthController],
     providers: [
         AuthService, 
         LocalStrategy, 

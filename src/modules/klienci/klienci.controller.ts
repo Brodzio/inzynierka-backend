@@ -10,7 +10,7 @@ export class KlienciController {
     private klienciService: KlienciService
     ) {}
     
-  @Post('auth/signup')
+  @Post('client/signup')
   signUp(@Body(ValidationPipe) createKlientDto: CreateKlientDto): Promise<void> {
     return this.klienciService.signUp(createKlientDto);
   }
