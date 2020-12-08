@@ -17,7 +17,6 @@ export class ProduktyRepository extends Repository<Produkty> {
         produkty.ilosc = ilosc;
         produkty.kod_produktu = kod_produktu;
 
-        console.log(produkty);
         try {
             await produkty.save();
         } catch (error) {

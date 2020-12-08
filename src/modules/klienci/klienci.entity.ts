@@ -38,9 +38,9 @@ export class Klienci extends BaseEntity {
     @Column()
     sol: string;
 
-    async validatePassword(haslo: string): Promise<boolean> {
-        const hash = await bcrypt.hash(haslo, this.sol);
-        return hash === this.haslo;
-      }
+    // async validatePassword(haslo: string): Promise<boolean> {
+    //     const hash = await bcrypt.hash(haslo, this.sol);
+    //     return hash === this.haslo;
+    //   }
 
 }

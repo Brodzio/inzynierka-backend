@@ -45,4 +45,12 @@ export class ProduktyService {
         await produkty.save();
         return produkty;
     }
+
+    async deleteProdukty(id: number): Promise<void> {
+        const result = await this.produktyRepository.delete({ id });
+
+        if(result.affected === 0) {
+            throw new NotFoundException(`Produkt with ID "${id}" not found`);
+        }
+    }
 }

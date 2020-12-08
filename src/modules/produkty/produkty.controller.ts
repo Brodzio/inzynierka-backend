@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ProduktyService } from './produkty.service';
 import { CreateProduktyDto } from './dto/create-produkt.dto';
 import { Produkty } from "./produkty.entity";
@@ -30,6 +30,11 @@ export class ProduktyController {
         @Param('id', ParseIntPipe) id: number,
         @Body() updateProdukty: CreateProduktyDto,
         ): Promise<Produkty> {
-            return this.produktyService.updateProdukty(id, updateProdukty);
-        }
+        return this.produktyService.updateProdukty(id, updateProdukty);
+    }
+
+    @Delete('/:id')
+    delteProdukty(@Param('id', ParseIntPipe)id : number): Promise<void> {
+        return this.produktyService.deleteProdukty(id);
+    }
 }
