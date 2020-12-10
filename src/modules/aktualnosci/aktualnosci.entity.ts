@@ -2,21 +2,23 @@ import { Transform } from "class-transformer";
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Komentarze extends BaseEntity {
+export class Aktualnosci extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_dodania: Date;
+    data_opublikowania: Date;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_modyfikacji: Date;
+    tytul: string;
 
     @Column({
         type: "varchar",
-        length: 300,
+        length: 2000,
     })
     opis: string;
+    
+    @Column()
+    zdjecie: string;
 }

@@ -11,7 +11,11 @@ export class KomentarzeRepository extends Repository<Komentarze> {
 
         const komentarz = new Komentarze();
         komentarz.data_dodania = data_dodania;
-        komentarz.data_modyfikacji = data_modyfikacji;
+        if(data_modyfikacji) {
+            komentarz.data_modyfikacji = data_modyfikacji;
+        } else {
+            komentarz.data_modyfikacji = data_dodania;
+        }
         komentarz.opis = opis;
 
         try {
@@ -20,5 +24,13 @@ export class KomentarzeRepository extends Repository<Komentarze> {
             throw new InternalServerErrorException();
         }
         return komentarz;
+    }
+
+    async getKomentarze(): Promise<Komentarze[]> {
+        const query = this.createQueryBuilder('komentarze');
+
+        const comments = await query.getMany();
+
+        return comments;
     }
 }

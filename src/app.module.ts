@@ -5,7 +5,10 @@ import { KlienciModule } from './modules/klienci/klienci.module';
 import { typeOrmConfig } from './config/typeorm.config';
 import { ProduktyModule } from './modules/produkty/produkty.module';
 import { AuthModule } from './auth/auth.module';
-import { PracownikModule } from './modules/pracownicy/pracownik.module';
+import { PracownicyModule } from './modules/pracownicy/pracownicy.module';
+import { KomentarzeModule } from './modules/komentarze/komentarze.module';
+import { AktualnosciModule } from './modules/aktualnosci/aktualnosci.module';
+import { AdresyModule } from './modules/adresy/adresy.module';
 
 @Module({
   imports: [
@@ -13,7 +16,10 @@ import { PracownikModule } from './modules/pracownicy/pracownik.module';
     StawkaVatModule,
     KlienciModule,
     ProduktyModule,
-    PracownikModule,
+    PracownicyModule,
+    KomentarzeModule,
+    AktualnosciModule,
+    AdresyModule,
     AuthModule,
   ],
 })

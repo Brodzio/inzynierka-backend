@@ -28,8 +28,8 @@ export class CreatePracownikDto {
     email: string;
 
     @IsNotEmpty()
-    data_zatrudnienia: string;
+    data_zatrudnienia: Date;
 
     @IsNotEmpty()
-    data_zwolnienia: string;
+    data_zwolnienia: Date;
 }

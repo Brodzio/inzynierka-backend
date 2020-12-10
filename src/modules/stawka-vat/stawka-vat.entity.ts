@@ -1,11 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from 'typeorm';
 
 @Entity()
-export class StawkaVat {
+export class StawkaVat extends BaseEntity{
     @PrimaryGeneratedColumn()
-    id_vat:number;
+    id: number;
 
     @Column()
     stawka_vat: string;
-
 }

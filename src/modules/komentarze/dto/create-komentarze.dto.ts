@@ -2,10 +2,9 @@ import { IsNotEmpty } from 'class-validator'
 
 export class CreateKomentarzeDTO {
      @IsNotEmpty()
-     data_dodania: string;
+     data_dodania: Date;
 
-     @IsNotEmpty()
-     data_modyfikacji: string;
+     data_modyfikacji: Date;
 
      @IsNotEmpty()
      opis: string;

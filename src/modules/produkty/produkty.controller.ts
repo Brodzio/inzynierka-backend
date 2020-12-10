@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query,
 import { ProduktyService } from './produkty.service';
 import { CreateProduktyDto } from './dto/create-produkt.dto';
 import { Produkty } from "./produkty.entity";
+import { UpdateProduktyDto } from "./dto/update-produkty.dto";
 
 @Controller('produkty')
 export class ProduktyController {
@@ -28,7 +29,7 @@ export class ProduktyController {
     @UsePipes(ValidationPipe)
     updateProdukty(
         @Param('id', ParseIntPipe) id: number,
-        @Body() updateProdukty: CreateProduktyDto,
+        @Body() updateProdukty: UpdateProduktyDto,
         ): Promise<Produkty> {
         return this.produktyService.updateProdukty(id, updateProdukty);
     }

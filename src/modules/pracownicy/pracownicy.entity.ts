@@ -9,7 +9,7 @@ export class Pracownicy {
     @PrimaryGeneratedColumn()
     id_pracownik:number;
 
-    @Column({ length: 500 })
+    @Column()
     imie: string;
 
     @Column()
