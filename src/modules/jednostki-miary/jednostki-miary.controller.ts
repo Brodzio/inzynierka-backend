@@ -1,0 +1,44 @@
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { JednostkiMiary } from "./jednostki-miary.entity";
+import { JednostkiMiaryService } from "./jednostki-miary.service";
+import { CreateJednostkiMiaryDTO } from './dto/create-jednostki-miary.dto';
+
+@Controller('units-measure')
+export class JednostkiMiaryController {
+    constructor(private jednostkiMiaryService: JednostkiMiaryService) {}
+
+    @Post()
+    @UsePipes(ValidationPipe)
+    createJednostkiMiary(
+        @Body() createJednostkiMiaryDTO: CreateJednostkiMiaryDTO,
+    ): Promise<JednostkiMiary> {
+        return this.jednostkiMiaryService.createJednostkiMiary(createJednostkiMiaryDTO);
+    }
+
+    @Get()
+    getJednostkiMiary(): Promise<JednostkiMiary[]> {
+        return this.jednostkiMiaryService.getJednostkiMiary();
+    }
+
+    @Get('/:id')
+    getJednostkiMiaryById(
+        @Param('id', ParseIntPipe) id : number): Promise<JednostkiMiary> {
+        return this.jednostkiMiaryService.getJednostkiMiaryById(id);
+    }
+
+    @Patch('/:id')
+    @UsePipes(ValidationPipe)
+    updateJednostkiMiary(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() createJednostkiMiaryDTO: CreateJednostkiMiaryDTO,
+        ): Promise<JednostkiMiary> {
+        return this.jednostkiMiaryService.updateJednostkiMiary(id, createJednostkiMiaryDTO);
+    }
+
+    @Delete('/:id')
+    deleteJednostkiMiary(
+        @Param('id', ParseIntPipe) id: number,
+    ): Promise<void> {
+        return this.jednostkiMiaryService.deleteJednostkiMiary(id);
+    }
+}

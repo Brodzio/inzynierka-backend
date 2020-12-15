@@ -21,9 +21,9 @@ export class AdresyController {
     }
 
     @Get('/:id')
-    GetAdresyById(
+    getAdresyById(
         @Param('id', ParseIntPipe) id : number): Promise<Adresy> {
-        return this.adresyService.GetAdresyById(id);
+        return this.adresyService.getAdresyById(id);
     }
 
     @Patch('/:id')

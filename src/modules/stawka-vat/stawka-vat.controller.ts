@@ -42,5 +42,4 @@ export class StawkaVatController {
   ): Promise<StawkaVat> {
       return this.stawkaVatService.updateStawkaVat(id, updateStawkaVat);
   }
-  
 }

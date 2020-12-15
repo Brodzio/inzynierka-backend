@@ -22,9 +22,9 @@ export class AktualnosciController {
     }
 
     @Get('/:id')
-    GetAktualnosciById(
+    getAktualnosciById(
         @Param('id', ParseIntPipe) id : number): Promise<Aktualnosci> {
-        return this.aktualnosciService.GetAktualnosciById(id);
+        return this.aktualnosciService.getAktualnosciById(id);
     }
 
     @Patch('/:id')

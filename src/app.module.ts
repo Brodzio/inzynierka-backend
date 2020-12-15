@@ -9,6 +9,19 @@ import { PracownicyModule } from './modules/pracownicy/pracownicy.module';
 import { KomentarzeModule } from './modules/komentarze/komentarze.module';
 import { AktualnosciModule } from './modules/aktualnosci/aktualnosci.module';
 import { AdresyModule } from './modules/adresy/adresy.module';
+import { ZdjeciaProduktowModule } from './modules/zdjecia-produktow/zdjecia-produktow.module';
+import { FakturyModule } from './modules/faktury/faktury.module';
+import { DaneSklepuModule } from './modules/dane-sklepu/dane-sklepu.module';
+import { ZamowieniaModule } from './modules/zamowienia/zamowienia.module';
+import { ProducenciModule } from './modules/producenci/producenci.module';
+import { KategorieModule } from './modules/kategorie/kategorie.module';
+import { JednostkiMiaryModule } from './modules/jednostki-miary/jednostki-miary.module';
+import { RodzajePlatnosciModule } from './modules/rodzaje-platnosci/rodzaje-platnosci.module';
+import { PlatnosciModule } from './modules/platnosci/platnosci.module';
+import { StatusyModule } from './modules/statusy/statusy.module';
+import { PozycjeZamowieniaModule } from './modules/pozycje-zamowienia/pozycje-zamowienia.module';
+import { PozycjeFakturyModule } from './modules/pozycje-faktury/pozycje-faktury.module';
+import { PozycjePlatnosciModule } from './modules/pozycje-platnosci/pozycje-platnosci.module';
 
 @Module({
   imports: [
@@ -20,6 +33,19 @@ import { AdresyModule } from './modules/adresy/adresy.module';
     KomentarzeModule,
     AktualnosciModule,
     AdresyModule,
+    ZdjeciaProduktowModule,
+    FakturyModule,
+    DaneSklepuModule,
+    ZamowieniaModule,
+    ProducenciModule,
+    KategorieModule,
+    JednostkiMiaryModule,
+    RodzajePlatnosciModule,
+    PlatnosciModule,
+    StatusyModule,
+    PozycjeZamowieniaModule,
+    PozycjeFakturyModule,
+    PozycjePlatnosciModule,
     AuthModule,
   ],
 })

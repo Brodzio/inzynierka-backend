@@ -19,7 +19,7 @@ export class AdresyService {
         return this.adresyRepository.getAdresy();
     }
 
-    async GetAdresyById(id: number): Promise<Adresy> {
+    async getAdresyById(id: number): Promise<Adresy> {
         const found = await this.adresyRepository.findOne({ id });
 
         if(!found) {
@@ -34,7 +34,7 @@ export class AdresyService {
         updateAdresy: CreateAdresyDto,
     ): Promise<Adresy> {
         const { wojewodztwo, miejscowosc, ulica, nr_budynku, nr_lokalu, kod_pocztowy } = updateAdresy;
-        const adress = await this.GetAdresyById(id);
+        const adress = await this.getAdresyById(id);
         adress.wojewodztwo = wojewodztwo;
         adress.miejscowosc = miejscowosc;
         adress.ulica = ulica;

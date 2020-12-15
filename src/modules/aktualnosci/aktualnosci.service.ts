@@ -20,7 +20,7 @@ export class AktualnosciService {
         return this.aktualnosciRepository.getAktualnosci();
     }
 
-    async GetAktualnosciById(id: number): Promise<Aktualnosci> {
+    async getAktualnosciById(id: number): Promise<Aktualnosci> {
         const found = await this.aktualnosciRepository.findOne({ id });
 
         if(!found) {
@@ -35,7 +35,7 @@ export class AktualnosciService {
         updateAktualnosci: UpdateAktualnosciDTO,
     ): Promise<Aktualnosci> {
         const { tytul, opis, zdjecie } = updateAktualnosci;
-        const aktualnosc = await this.GetAktualnosciById(id);
+        const aktualnosc = await this.getAktualnosciById(id);
         aktualnosc.tytul = tytul;
         aktualnosc.opis = opis;
         aktualnosc.zdjecie = zdjecie;
