@@ -1,14 +1,13 @@
-import { Transform } from "class-transformer";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Komentarze } from '../komentarze/komentarze.entity';
 
 @Entity()
 export class Aktualnosci extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_opublikowania: Date;
+    data_opublikowania: string;
 
     @Column()
     tytul: string;
@@ -21,4 +20,7 @@ export class Aktualnosci extends BaseEntity {
     
     @Column()
     zdjecie: string;
+
+    @OneToMany(type => Komentarze, komentarze => komentarze.aktualnosci, { eager: true })
+    komentarze: Komentarze[];
 }

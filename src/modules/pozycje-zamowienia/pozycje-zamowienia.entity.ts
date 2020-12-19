@@ -1,4 +1,7 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Zamowienia } from '../zamowienia/zamowienia.entity';
+import { Produkty } from '../produkty/produkty.entity';
+import { PozycjeFaktury } from '../pozycje-faktury/pozycje-faktury.entity';
 
 @Entity()
 export class PozycjeZamowienia extends BaseEntity {
@@ -14,4 +17,13 @@ export class PozycjeZamowienia extends BaseEntity {
 
     @Column()
     cena_netto: string;
+
+    @ManyToOne(type => Zamowienia, zamowienia => zamowienia.pozycje_zamowienia, { eager: false })
+    zamowienia: Zamowienia;
+
+    @ManyToOne(type => Produkty, produkty => produkty.pozycje_zamowienia, { eager: false })
+    produkty: Produkty;
+
+    @OneToOne(type => PozycjeFaktury, pozycje_faktury => pozycje_faktury.pozycje_zamowienia)
+    pozycje_faktury: PozycjeFaktury;
 }

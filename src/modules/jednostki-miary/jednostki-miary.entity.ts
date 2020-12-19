@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Produkty } from '../produkty/produkty.entity';
 
 @Entity()
 export class JednostkiMiary extends BaseEntity {
@@ -8,4 +9,7 @@ export class JednostkiMiary extends BaseEntity {
 
     @Column()
     nazwa: string;
+
+    @OneToMany(type => Produkty, produkty => produkty.jednostki_miary, { eager: true })
+    produkty: Produkty[];
 }

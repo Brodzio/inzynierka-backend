@@ -1,5 +1,5 @@
-import { Transform } from "class-transformer";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Produkty } from '../produkty/produkty.entity';
 
 @Entity()
 export class ZdjeciaProduktow extends BaseEntity {
@@ -10,7 +10,9 @@ export class ZdjeciaProduktow extends BaseEntity {
     @Column()
     nazwa: string;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_dodania: Date;
+    data_dodania: string;
+
+    @ManyToOne(type => Produkty, produkty => produkty.zdjecia_produktow, { eager: false })
+    produkty: Produkty;
 }

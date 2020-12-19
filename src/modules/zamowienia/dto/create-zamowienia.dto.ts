@@ -3,11 +3,11 @@ import { IsNotEmpty } from "class-validator";
 export class CreateZamowieniDTO {
 
     @IsNotEmpty()
-    data_zlozenia: Date;
+    data_zlozenia: string;
 
-    data_przyjecia: Date;
+    data_przyjecia: string;
 
-    data_wysylki: Date;
+    data_wysylki: string;
 
-    data_realizacji: Date;
+    data_realizacji: string;
 }

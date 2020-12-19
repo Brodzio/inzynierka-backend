@@ -6,7 +6,7 @@ export class CreateFakturyDto {
     nr_faktury: string;
 
     @IsNotEmpty()
-    data_sprzedazy: Date;
+    data_sprzedazy: string;
 
     @IsNotEmpty()
     wartosc_netto: string;

@@ -1,4 +1,5 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Pracownicy } from '../pracownicy/pracownicy.entity';
 
 export enum UserRole {
     ADMIN = "admin",
@@ -17,4 +18,7 @@ export class RodzajPracownika extends BaseEntity {
         default: UserRole.PRACOWNIK
     })
     uprawnienia: number;
+
+    @OneToOne(type => Pracownicy, pracownicy => pracownicy.rodzaj_pracownika)
+    pracownicy: Pracownicy;
 }

@@ -6,5 +6,5 @@ export class CreateZdjeciaProduktowDTO {
     nazwa: string
 
     @IsNotEmpty()
-    data_dodania: Date;
+    data_dodania: string;
 }

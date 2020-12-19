@@ -1,4 +1,6 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Faktury } from '../faktury/faktury.entity';
+import { Adresy } from '../adresy/adresy.entity';
 
 @Entity()
 export class DaneSklepu extends BaseEntity {
@@ -19,4 +21,11 @@ export class DaneSklepu extends BaseEntity {
 
     @Column()
     nr_tel: string;
+
+    @OneToMany(type => Faktury, faktury => faktury.dane_sklepu, { eager: true })
+    faktury: Faktury[];
+
+    @OneToOne(type => Adresy, adresy => adresy.dane_sklepu)
+    @JoinColumn()
+    adresy: Adresy;
 }

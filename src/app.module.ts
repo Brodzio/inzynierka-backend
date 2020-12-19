@@ -22,6 +22,7 @@ import { StatusyModule } from './modules/statusy/statusy.module';
 import { PozycjeZamowieniaModule } from './modules/pozycje-zamowienia/pozycje-zamowienia.module';
 import { PozycjeFakturyModule } from './modules/pozycje-faktury/pozycje-faktury.module';
 import { PozycjePlatnosciModule } from './modules/pozycje-platnosci/pozycje-platnosci.module';
+import { RodzajPracownikaModule } from './modules/rodzaj-pracownika/rodzaj-pracownika.module';
 
 @Module({
   imports: [
@@ -46,6 +47,7 @@ import { PozycjePlatnosciModule } from './modules/pozycje-platnosci/pozycje-plat
     PozycjeZamowieniaModule,
     PozycjeFakturyModule,
     PozycjePlatnosciModule,
+    RodzajPracownikaModule,
     AuthModule,
   ],
 })

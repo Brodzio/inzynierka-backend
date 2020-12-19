@@ -3,7 +3,7 @@ import { ZdjeciaProduktowService } from "./zdjecia-produktow.service";
 import { ZdjeciaProduktow } from './zdjecia-produktow.entity';
 import { CreateZdjeciaProduktowDTO } from "./dto/create-zdjecia-produktow.dto";
 
-@Controller('zdjecia-produktow')
+@Controller('product-photos')
 export class ZdjeciaProduktowController {
     constructor(private zdjeciaProduktowService: ZdjeciaProduktowService) {}
 

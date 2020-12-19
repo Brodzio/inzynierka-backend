@@ -3,7 +3,7 @@ import { PlatnosciService } from "./platnosci.service";
 import { Platnosci } from './platnosci.entity';
 import { CreatePlatnosciDTO } from "./dto/create-platnosci.dto";
 
-@Controller()
+@Controller('payments')
 export class PlatnosciController {
     constructor(private platnosciService: PlatnosciService) {}
 

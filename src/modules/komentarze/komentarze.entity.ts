@@ -1,22 +1,27 @@
-import { Transform } from "class-transformer";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Produkty } from '../produkty/produkty.entity';
+import { Aktualnosci } from '../aktualnosci/aktualnosci.entity';
 
 @Entity()
 export class Komentarze extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_dodania: Date;
+    data_dodania: string;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_modyfikacji: Date;
+    data_modyfikacji: string;
 
     @Column({
         type: "varchar",
         length: 300,
     })
     opis: string;
+
+    @ManyToOne(type => Produkty, produkty => produkty.komentarze, { eager: false })
+    produkty: Produkty;
+
+    @ManyToOne(type => Aktualnosci, aktualnosci => aktualnosci.komentarze, { eager: false })
+    aktualnosci: Aktualnosci;
 }

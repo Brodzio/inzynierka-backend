@@ -1,5 +1,8 @@
-import { Transform } from "class-transformer";
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Adresy } from '../adresy/adresy.entity';
+import { Klienci } from '../klienci/klienci.entity';
+import { Statusy } from '../statusy/statusy.entity';
+import { PozycjeZamowienia } from '../pozycje-zamowienia/pozycje-zamowienia.entity';
 
 @Entity()
 export class Zamowienia extends BaseEntity {
@@ -7,19 +10,27 @@ export class Zamowienia extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_zlozenia: Date;
+    data_zlozenia: string;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_przyjecia: Date;
+    data_przyjecia: string;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_wysylki: Date;
+    data_wysylki: string;
 
-    @Transform(date1 => (date1).format('DD/MM/YYYY'))
     @Column()
-    data_realizacji: Date;
+    data_realizacji: string;
+
+    @ManyToOne(type => Adresy, adresy => adresy.zamowienia, { eager: false})
+    adresy: Adresy;
+
+    @ManyToOne(type => Klienci, klienci => klienci.zamowienia, { eager: false })
+    klienci: Klienci;
+
+    @ManyToOne(type => Statusy, statusy => statusy.zamowienia, { eager: false })
+    statusy: Statusy;
+
+    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { eager: true })
+    pozycje_zamowienia: PozycjeZamowienia[];
 }
