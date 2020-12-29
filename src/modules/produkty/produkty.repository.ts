@@ -10,7 +10,7 @@ export class ProduktyRepository extends Repository<Produkty> {
         createProduktyDto: CreateProduktyDto,
         //req
     ): Promise<Produkty> {
-        const { nazwa_produktu, cena_brutto, cena_netto, opis, ilosc, kod_produktu, producenci } = createProduktyDto;
+        const { nazwa_produktu, cena_brutto, cena_netto, opis, ilosc, kod_produktu, producenci, kategorie, jednostki_miary, stawka_vat } = createProduktyDto;
 
         const produkty = new Produkty();
         produkty.nazwa_produktu = nazwa_produktu;
@@ -20,6 +20,9 @@ export class ProduktyRepository extends Repository<Produkty> {
         produkty.ilosc = ilosc;
         produkty.kod_produktu = kod_produktu;
         produkty.producenci = producenci;
+        produkty.kategorie = kategorie;
+        produkty.jednostki_miary = jednostki_miary;
+        produkty.stawka_vat = stawka_vat;
 
         try {
             await produkty.save();

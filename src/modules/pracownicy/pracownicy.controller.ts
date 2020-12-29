@@ -5,7 +5,7 @@ import { Pracownicy } from './pracownicy.entity';
 import { PracownicyService } from './pracownicy.service';
 
 @Controller('workers')
-@UseGuards(JwtAdminAuthGuard)
+//@UseGuards(JwtAdminAuthGuard)
 export class PracownicyController {
     constructor(
         private pracownicyService: PracownicyService,
