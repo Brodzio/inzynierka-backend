@@ -11,8 +11,8 @@ export class Platnosci extends BaseEntity {
     @Column()
     data_platnosci: string;
 
-    @ManyToOne(type => RodzajePlatnosci, rodzaje_platnosci => rodzaje_platnosci.platnosci, { eager: false })
-    rodzaje_platnosci: RodzajePlatnosci;
+    @ManyToOne(type => RodzajePlatnosci, rodzaje_platnosci => rodzaje_platnosci.platnosci, { eager: false, cascade: true })
+    rodzaje_platnosci: RodzajePlatnosci | number;
 
     @OneToMany(type => PozycjePlatnosci, pozycje_platnosci => pozycje_platnosci.platnosci, { eager: true })
     pozycje_platnosci: PozycjePlatnosci[];

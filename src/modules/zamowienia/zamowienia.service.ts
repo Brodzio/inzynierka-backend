@@ -11,8 +11,11 @@ export class ZamowieniaService {
         private zamowieniaRepository: ZamowieniaRepository,
     ) {}
 
-    async createZamowienia(createZamowieniaDTO: CreateZamowieniDTO): Promise<Zamowienia> {
-        return this.zamowieniaRepository.createZamowienia(createZamowieniaDTO);
+    async createZamowienia(
+        createZamowieniaDTO: CreateZamowieniDTO,
+        user
+    ): Promise<Zamowienia> {
+        return this.zamowieniaRepository.createZamowienia(createZamowieniaDTO, user);
     }
 
     async getZamowienia(): Promise<Zamowienia[]> {

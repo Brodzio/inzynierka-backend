@@ -1,5 +1,5 @@
 import { StawkaVatService } from './stawka-vat.service';
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateStawkaVatDto } from './dto/create-stawka-vat.dto';
 import { StawkaVat } from './stawka-vat.entity';
 
@@ -18,28 +18,28 @@ export class StawkaVatController {
 
   @Get()
   getStawkaVat(): Promise<StawkaVat[]> {
-      return this.stawkaVatService.getStawkaVat();
+    return this.stawkaVatService.getStawkaVat();
   }
 
   @Get('/:id')
   getStawkaVatById(
-      @Param('id', ParseIntPipe) id : number,
+    @Param('id', ParseIntPipe) id : number,
   ): Promise<StawkaVat> {
-      return this.stawkaVatService.getStawkaVatById(id);
-    }
+    return this.stawkaVatService.getStawkaVatById(id);
+  }
 
   @Delete('/:id')
   deleteStawkaVat(
-      @Param('id', ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: number,
   ): Promise<void> {
-      return this.stawkaVatService.deleteStawkaVat(id);
+    return this.stawkaVatService.deleteStawkaVat(id);
   }
 
-  @Patch('/:id')
+  @Put('/:id')
   updateStawkaVat(
-      @Param('id', ParseIntPipe) id: number,
-      @Body() updateStawkaVat: CreateStawkaVatDto,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateStawkaVat: CreateStawkaVatDto,
   ): Promise<StawkaVat> {
-      return this.stawkaVatService.updateStawkaVat(id, updateStawkaVat);
+    return this.stawkaVatService.updateStawkaVat(id, updateStawkaVat);
   }
 }

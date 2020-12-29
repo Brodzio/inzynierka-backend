@@ -7,7 +7,7 @@ import { Faktury } from './faktury.entity';
 export class FakturyRepository extends Repository<Faktury> {
 
     async createFaktury(createFakturyDto: CreateFakturyDto): Promise<Faktury> {
-        const{ nr_faktury, data_sprzedazy, wartosc_netto, wartosc_brutto, wartosc_vat, rodzaj_dokumentu } = createFakturyDto;
+        const{ nr_faktury, data_sprzedazy, wartosc_netto, wartosc_brutto, wartosc_vat, rodzaj_dokumentu, adresy, dane_sklepu, klienci } = createFakturyDto;
 
         const faktura = new Faktury();
         faktura.nr_faktury = nr_faktury;
@@ -16,6 +16,11 @@ export class FakturyRepository extends Repository<Faktury> {
         faktura.wartosc_brutto = wartosc_brutto;
         faktura.wartosc_vat = wartosc_vat;
         faktura.rodzaj_dokumentu = rodzaj_dokumentu;
+        faktura.adresy = adresy;
+        if(dane_sklepu) {
+            faktura.dane_sklepu = dane_sklepu;
+        }
+        faktura.klienci = klienci;
 
         try {
             await faktura.save();

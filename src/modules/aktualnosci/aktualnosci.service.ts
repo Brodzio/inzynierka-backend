@@ -3,7 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { AktualnosciRepository } from "./aktualnosci.repository";
 import { CreateAktualnosciDTO } from "./dto/create-aktualnosci.dto";
 import { Aktualnosci } from './aktualnosci.entity';
-import { UpdateAktualnosciDTO } from "../stawka-vat/dto/update-aktualnosci.dto";
+import { UpdateAktualnosciDTO } from "./dto/update-aktualnosci.dto";
 
 @Injectable()
 export class AktualnosciService {

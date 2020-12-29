@@ -1,13 +1,15 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ZdjeciaProduktowService } from "./zdjecia-produktow.service";
 import { ZdjeciaProduktow } from './zdjecia-produktow.entity';
 import { CreateZdjeciaProduktowDTO } from "./dto/create-zdjecia-produktow.dto";
+import { JwtPracownikAuthGuard } from '../../auth/jwt-pracownik-auth.guards';
 
 @Controller('product-photos')
 export class ZdjeciaProduktowController {
     constructor(private zdjeciaProduktowService: ZdjeciaProduktowService) {}
 
     @Post()
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     createZdjeciaProduktow(
         @Body() createZdjeciaProduktowDTO: CreateZdjeciaProduktowDTO,
@@ -26,7 +28,8 @@ export class ZdjeciaProduktowController {
         return this.zdjeciaProduktowService.getZdjeciaProduktowById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     updateZdjeciaProduktow(
         @Param('id', ParseIntPipe) id: number,
@@ -36,6 +39,7 @@ export class ZdjeciaProduktowController {
     }
 
     @Delete('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     deleteZdjeciaProduktow(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<void> {

@@ -18,11 +18,9 @@ import { KategorieModule } from './modules/kategorie/kategorie.module';
 import { JednostkiMiaryModule } from './modules/jednostki-miary/jednostki-miary.module';
 import { RodzajePlatnosciModule } from './modules/rodzaje-platnosci/rodzaje-platnosci.module';
 import { PlatnosciModule } from './modules/platnosci/platnosci.module';
-import { StatusyModule } from './modules/statusy/statusy.module';
 import { PozycjeZamowieniaModule } from './modules/pozycje-zamowienia/pozycje-zamowienia.module';
 import { PozycjeFakturyModule } from './modules/pozycje-faktury/pozycje-faktury.module';
 import { PozycjePlatnosciModule } from './modules/pozycje-platnosci/pozycje-platnosci.module';
-import { RodzajPracownikaModule } from './modules/rodzaj-pracownika/rodzaj-pracownika.module';
 
 @Module({
   imports: [
@@ -43,11 +41,9 @@ import { RodzajPracownikaModule } from './modules/rodzaj-pracownika/rodzaj-praco
     JednostkiMiaryModule,
     RodzajePlatnosciModule,
     PlatnosciModule,
-    StatusyModule,
     PozycjeZamowieniaModule,
     PozycjeFakturyModule,
     PozycjePlatnosciModule,
-    RodzajPracownikaModule,
     AuthModule,
   ],
 })

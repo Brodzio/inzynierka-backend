@@ -1,13 +1,16 @@
-import { Transform } from 'class-transformer';
-import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToOne, JoinColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToOne, JoinColumn, ManyToOne, BaseEntity } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Adresy } from '../adresy/adresy.entity';
-import { RodzajPracownika } from '../rodzaj-pracownika/rodzaj.pracownika.entity';
-import { Statusy } from '../statusy/statusy.entity';
+import { StatusValue } from '../../enum/statusy.enum';
+
+export enum UserRole {
+    ADMIN = "admin",
+    PRACOWNIK = "pracownik",
+}
 
 @Entity()
 @Unique(['login'])
-export class Pracownicy {
+export class Pracownicy extends BaseEntity{
 
     @PrimaryGeneratedColumn()
     id: number;
@@ -44,14 +47,21 @@ export class Pracownicy {
         return hash === this.haslo;
     }
 
-    @OneToOne(type => Adresy, adresy => adresy.klienci)
+    @OneToOne(type => Adresy, adresy => adresy.klienci, { eager: true, cascade: true })
     @JoinColumn()
-    adresy: Adresy;
+    adresy: Adresy | number;
 
-    @OneToOne(type => RodzajPracownika, rodzaj_pracownika => rodzaj_pracownika.pracownicy)
-    @JoinColumn()
-    rodzaj_pracownika: RodzajPracownika;
+    @Column({
+        type: "enum",
+        enum: UserRole,
+        default: UserRole.PRACOWNIK
+    })
+    uprawnienia: UserRole;
 
-    @ManyToOne(type => Statusy, statusy => statusy.pracownicy, { eager: false })
-    statusy: Statusy;
+    @Column({
+        type: "enum",
+        enum: StatusValue,
+        default: StatusValue.ACTIVE
+    })
+    statusy: StatusValue;
 }

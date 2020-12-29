@@ -6,14 +6,19 @@ import { Zamowienia } from './zamowienia.entity';
 @EntityRepository(Zamowienia)
 export class ZamowieniaRepository extends Repository<Zamowienia> {
     
-    async createZamowienia(createZamowieniaDTO: CreateZamowieniDTO): Promise<Zamowienia> {
-        const{ data_zlozenia, data_przyjecia, data_wysylki, data_realizacji } = createZamowieniaDTO;
+    async createZamowienia(
+        createZamowieniaDTO: CreateZamowieniDTO,
+        user
+    ): Promise<Zamowienia> {
+        const{ data_zlozenia, data_przyjecia, data_wysylki, data_realizacji, adresy } = createZamowieniaDTO;
 
         const zamowienie = new Zamowienia();
         zamowienie.data_zlozenia = data_zlozenia;
         zamowienie.data_przyjecia = data_przyjecia;
         zamowienie.data_wysylki = data_wysylki;
         zamowienie.data_realizacji = data_realizacji;
+        zamowienie.adresy = adresy;
+        zamowienie.klienci = user.klientId;
 
         try {
             await zamowienie.save();

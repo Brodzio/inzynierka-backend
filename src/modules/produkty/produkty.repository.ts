@@ -6,8 +6,11 @@ import { InternalServerErrorException } from '@nestjs/common';
 @EntityRepository(Produkty)
 export class ProduktyRepository extends Repository<Produkty> {
  
-    async createProdukt( createProduktyDto: CreateProduktyDto): Promise<Produkty> {
-        const { nazwa_produktu, cena_brutto, cena_netto, opis, ilosc, kod_produktu } = createProduktyDto;
+    async createProdukt(
+        createProduktyDto: CreateProduktyDto,
+        //req
+    ): Promise<Produkty> {
+        const { nazwa_produktu, cena_brutto, cena_netto, opis, ilosc, kod_produktu, producenci } = createProduktyDto;
 
         const produkty = new Produkty();
         produkty.nazwa_produktu = nazwa_produktu;
@@ -16,6 +19,7 @@ export class ProduktyRepository extends Repository<Produkty> {
         produkty.opis = opis;
         produkty.ilosc = ilosc;
         produkty.kod_produktu = kod_produktu;
+        produkty.producenci = producenci;
 
         try {
             await produkty.save();

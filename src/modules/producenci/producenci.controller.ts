@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ProducenciService } from "./producenci.service";
 import { CreateProducenciDTO } from './dto/create-producenci.dto';
 import { Producenci } from './producenci.entity';
@@ -26,7 +26,7 @@ export class ProducenciController {
         return this.producenciService.getProducenciById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
     @UsePipes(ValidationPipe)
     updateProducenci(
         @Param('id', ParseIntPipe) id: number,

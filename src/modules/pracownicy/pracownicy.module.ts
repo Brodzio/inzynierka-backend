@@ -10,5 +10,6 @@ import { PracownicyService } from './pracownicy.service';
   ],
   controllers: [PracownicyController],
   providers: [PracownicyService],
+  exports: [PracownicyService]
 })
 export class PracownicyModule {}

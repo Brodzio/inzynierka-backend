@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Query, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Request, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ProduktyService } from './produkty.service';
 import { CreateProduktyDto } from './dto/create-produkt.dto';
 import { Produkty } from "./produkty.entity";
 import { UpdateProduktyDto } from "./dto/update-produkty.dto";
+import { JwtPracownikAuthGuard } from "src/auth/jwt-pracownik-auth.guards";
+import { JwtAuthGuard } from '../../auth/jwt-auth.guards';
 
 @Controller('products')
 export class ProduktyController {
@@ -10,22 +12,28 @@ export class ProduktyController {
     constructor(private produktyService: ProduktyService) {}
 
     @Post()
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
-    createProdukt(@Body() creatProduktyDto: CreateProduktyDto): Promise<Produkty> {
+    createProdukt(
+        @Body() creatProduktyDto: CreateProduktyDto,
+    ): Promise<Produkty> {
         return this.produktyService.createProdukt(creatProduktyDto);
     }
 
     @Get()
+    @UseGuards(JwtAuthGuard)
     getProdukty(): Promise<Produkty[]> {
         return this.produktyService.getProdukty();
     }
 
     @Get('/:id')
+    @UseGuards(JwtAuthGuard)
     getProduktyById(@Param('id', ParseIntPipe) id: number): Promise<Produkty> {
         return this.produktyService.getProduktyById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     updateProdukty(
         @Param('id', ParseIntPipe) id: number,
@@ -35,6 +43,7 @@ export class ProduktyController {
     }
 
     @Delete('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     delteProdukty(@Param('id', ParseIntPipe)id : number): Promise<void> {
         return this.produktyService.deleteProdukty(id);
     }

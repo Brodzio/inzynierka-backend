@@ -9,9 +9,10 @@ import { AuthCredentialsDto } from '../../auth/dto/auth-credentials.dto';
 export class KlienciRepository extends Repository<Klienci> {
     
     async signUp(createKlientDto: CreateKlientDto): Promise<void> {
-        const { imie, nazwisko, login, haslo, nazwa_firmy, regon, nip, nr_tel, email } = createKlientDto;
+        const { imie, nazwisko, login, haslo, nazwa_firmy, regon, nip, nr_tel, email, adresy } = createKlientDto;
 
         const klient = new Klienci();
+
         klient.imie = imie;
         klient.nazwisko = nazwisko;
         klient.login = login;
@@ -34,8 +35,7 @@ export class KlienciRepository extends Repository<Klienci> {
         }
         klient.nr_tel = nr_tel;
         klient.email = email;
-
-        console.log(klient);
+        klient.adresy = adresy;
 
         try {
             await klient.save();
@@ -48,12 +48,20 @@ export class KlienciRepository extends Repository<Klienci> {
         }
     }
 
-    async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<string> {
-         const { login, haslo } = authCredentialsDto;
+    async getKlienci(): Promise<Klienci[]> {
+        const query = this.createQueryBuilder('klienci');
+
+        const klienci = await query.getMany();
+
+        return klienci;
+    }
+
+    async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<Klienci> {
+        const { login, haslo } = authCredentialsDto;
         const user = await this.findOne({ login });
 
         if (user && await user.validatePassword(haslo)) {
-            return user.login;
+            return user;
         } else {
             return null;
         }
@@ -62,5 +70,4 @@ export class KlienciRepository extends Repository<Klienci> {
     private async hashPassword(password: string, salt: string) {
         return bcrypt.hash(password, salt); 
     }
-
 }

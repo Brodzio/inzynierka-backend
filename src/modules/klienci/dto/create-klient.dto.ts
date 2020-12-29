@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString, MinLength, MaxLength, Matches } from 'class-validator';
+import { Adresy } from '../../adresy/adresy.entity';
 
 export class CreateKlientDto {
     @IsNotEmpty()
@@ -32,4 +33,7 @@ export class CreateKlientDto {
 
     @IsNotEmpty()
     email: string;
+
+    @IsNotEmpty()
+    adresy: Adresy;
 }

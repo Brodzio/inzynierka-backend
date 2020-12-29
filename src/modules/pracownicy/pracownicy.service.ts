@@ -1,46 +1,68 @@
-import { ClassSerializerInterceptor, Injectable, UnauthorizedException, UseInterceptors } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PracownicyRepository } from './pracownicy.repository';
-import { JwtService } from '@nestjs/jwt';
-import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
+import { CreatePracownicyDto } from './dto/create-pracownicy.dto';
 import { Pracownicy } from './pracownicy.entity';
+import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
 
 @Injectable()
 export class PracownicyService {
     constructor(
         @InjectRepository(PracownicyRepository)
         private pracownicyRepository: PracownicyRepository,
-        //private jwtService: JwtService,
     ) {}
 
-    // async signInPracownicy(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-    //     const login = await this.pracownicyRepository.validateUserPassword(authCredentialsDto);
-
-    //     if(!login) {
-    //         throw new UnauthorizedException('Invalid credentials!');
-    //     }
-
-    //     const payload: JwtPayLoad = { login };
-    //     const accessToken = await this.jwtService.sign(payload);
-
-    //     return { accessToken };
-    // }
-
-    @UseInterceptors(ClassSerializerInterceptor)
-    findAll(): Promise<Pracownicy[]> {
-        return this.pracownicyRepository.find();
+    async createPracownicy(
+        createPracownicyDto: CreatePracownicyDto,
+    ): Promise<Pracownicy> {
+        return this.pracownicyRepository.createPracownicy(createPracownicyDto);
     }
 
-    @UseInterceptors(ClassSerializerInterceptor)
-    findOne(username: string): Promise<Pracownicy> {
-        return this.pracownicyRepository.findOne({where: {'login':username}});
+    async getPracownicy(): Promise<Pracownicy[]> {
+        return this.pracownicyRepository.getPracownicy();
     }
 
-    async remove(id: string): Promise<void> {
-        await this.pracownicyRepository.delete(id);
+    async getPracownicyById(id: number): Promise<Pracownicy> {
+        const found = await this.pracownicyRepository.findOne({ id });
+
+        if(!found) {
+            throw new NotFoundException(`Worker with ID "${id}" not found`);
+        }
+
+        return found;
     }
 
-    async createOne( klienci: Pracownicy) {
-        this.pracownicyRepository.save(klienci);
+    async updatePracownicy(
+        id: number,
+        createPracownicyDto: CreatePracownicyDto,
+    ): Promise<Pracownicy> {
+        const { imie, nazwisko, nr_tel, email, data_zatrudnienia, data_zwolnienia, adresy } = createPracownicyDto;
+
+        const pracownik = await this.getPracownicyById(id);
+
+        pracownik.imie = imie;
+        pracownik.nazwisko = nazwisko;
+        pracownik.nr_tel = nr_tel;
+        pracownik.email = email;
+        pracownik.data_zatrudnienia = data_zatrudnienia;
+        pracownik.data_zwolnienia = data_zwolnienia;
+        pracownik.adresy = adresy;
+
+        await pracownik.save();
+        return pracownik;
+    }
+
+    async deletePracownicy(
+        id: number,
+    ): Promise<void> {
+        const result = await this.pracownicyRepository.delete({ id });
+        
+        if(result.affected === 0) {
+            throw new NotFoundException(`Worker with ID "${id}" not found`);
+        }
+    }
+
+    async validateUser(authCredentialsDto: AuthCredentialsDto): Promise<Pracownicy> {
+        return await this.pracownicyRepository.validateUserPassword(authCredentialsDto);
     }
 }

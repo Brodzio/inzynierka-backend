@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { FakturyService } from "./faktury.service";
 import { CreateFakturyDto } from './dto/create-faktury.dto';
 import { Faktury } from "./faktury.entity";
+import { JwtPracownikAuthGuard } from "src/auth/jwt-pracownik-auth.guards";
 
 @Controller('invoices')
+@UseGuards(JwtPracownikAuthGuard)
 export class FakturyController {
     constructor(private fakturyService: FakturyService) {}
 
@@ -26,7 +28,7 @@ export class FakturyController {
         return this.fakturyService.getFakturyById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
     @UsePipes(ValidationPipe)
     updateFaktury(
         @Param('id', ParseIntPipe) id: number,

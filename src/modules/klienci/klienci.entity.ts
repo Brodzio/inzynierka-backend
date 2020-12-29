@@ -3,7 +3,7 @@ import * as bcrypt from 'bcrypt';
 import { Faktury } from '../faktury/faktury.entity';
 import { Zamowienia } from '../zamowienia/zamowienia.entity';
 import { Adresy } from '../adresy/adresy.entity';
-import { Statusy } from '../statusy/statusy.entity';
+import { StatusValue } from '../../enum/statusy.enum';
 
 @Entity()
 @Unique(['login'])
@@ -53,10 +53,14 @@ export class Klienci extends BaseEntity {
   @OneToMany(type => Zamowienia, zamowienia => zamowienia.klienci, { eager: true })
   zamowienia: Zamowienia[];
 
-  @OneToOne(type => Adresy, adresy => adresy.klienci)
+  @OneToOne(type => Adresy, adresy => adresy.klienci, { eager: true, cascade: true })
   @JoinColumn()
-  adresy: Adresy;
+  adresy: Adresy | number;
 
-  @ManyToOne(type => Statusy, statusy => statusy.klienci, { eager: false })
-  statusy: Statusy;
+  @Column({
+    type: "enum",
+    enum: StatusValue,
+    default: StatusValue.ACTIVE
+  })
+  statusy: StatusValue;
 }

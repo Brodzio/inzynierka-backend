@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { Adresy } from '../../adresy/adresy.entity';
 
 export class CreateDaneSklepuDTO {
 
@@ -12,4 +13,7 @@ export class CreateDaneSklepuDTO {
 
     @IsNotEmpty()
     nr_tel: string;
+
+    @IsNotEmpty()
+    adresy: Adresy | number;
 }

@@ -7,11 +7,12 @@ import { ZdjeciaProduktow } from './zdjecia-produktow.entity';
 export class ZdjeciaProduktowRepository extends Repository<ZdjeciaProduktow> {
 
     async createZdjeciaProduktow(createZdjeciaProduktowDTO: CreateZdjeciaProduktowDTO): Promise<ZdjeciaProduktow> {
-        const{ nazwa, data_dodania } = createZdjeciaProduktowDTO;
+        const{ nazwa, data_dodania, produkty } = createZdjeciaProduktowDTO;
 
         const photo = new ZdjeciaProduktow();
         photo.nazwa = nazwa;
         photo.data_dodania = data_dodania;
+        photo.produkty = produkty;
 
         try {
             await photo.save();

@@ -6,12 +6,14 @@ import { KlienciModule } from "src/modules/klienci/klienci.module";
 import { AuthService } from "./auth.service";
 import { JwtStrategy } from "./jwt.strategy";
 import { LocalStrategy } from "./local.strategy";
-import { KlienciRepository } from '../modules/klienci/klient.repository';
-import { TypeOrmModule } from "@nestjs/typeorm";
+import { JwtPracownikStrategy } from './jwt-pracownik.strategy';
+import { JwtAdminStrategy } from './jwt-admin.strategy';
+import { PracownicyModule } from 'src/modules/pracownicy/pracownicy.module';
 
 @Module({
     imports: [
         KlienciModule,
+        PracownicyModule,
         PassportModule, 
         JwtModule.register({
             secret: 'topSecret51',
@@ -23,8 +25,11 @@ import { TypeOrmModule } from "@nestjs/typeorm";
     controllers: [AuthController],
     providers: [
         AuthService, 
-        LocalStrategy, 
-        JwtStrategy],
+        LocalStrategy,
+        JwtStrategy,
+        JwtPracownikStrategy,
+        JwtAdminStrategy,
+    ],
     exports: [AuthService],
   })
   export class AuthModule {}

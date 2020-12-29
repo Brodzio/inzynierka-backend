@@ -1,10 +1,9 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { KlienciRepository } from './klient.repository';
 import { CreateKlientDto } from './dto/create-klient.dto';
-import { JwtService } from '@nestjs/jwt';
-
 import { AuthCredentialsDto } from '../../auth/dto/auth-credentials.dto';
+import { Klienci } from './klienci.entity';
 
 @Injectable()
 export class KlienciService {
@@ -18,24 +17,51 @@ export class KlienciService {
     return this.klienciRepository.signUp(createKlientDto);
   }
 
-  /*async signIn(authCredentialsDto: AuthCredentialsDto): Promise<{ accessToken: string }> {
-    const login = await this.klienciRepository.validateUserPassword(authCredentialsDto);
+  async getKlienci(): Promise<Klienci[]> {
+    return this.klienciRepository.getKlienci();
+  }
 
-    if(!login) {
-     throw new UnauthorizedException('Invalid credentials!');
-   }
+  async getKlienciById(id: number): Promise<Klienci> {
+    const found = await this.klienciRepository.findOne({ id });
 
-    const payload: JwtPayLoad = { login };
-   const accessToken = await this.jwtService.sign(payload);
-
-   return { accessToken };
- }*/
-
-  async validateUser(authCredentialsDto: AuthCredentialsDto): Promise<boolean> {
-    const login = await this.klienciRepository.validateUserPassword(authCredentialsDto);
-    if(login){
-      return true;
+    if(!found) {
+      throw new NotFoundException(`Clients with ID "${id}" not found`);
     }
-    return false;
+
+    return found;
+  }
+
+  async updateKlienci(
+    id: number,
+    createKlientDto: CreateKlientDto,
+  ): Promise<Klienci> {
+    const { imie, nazwisko, nazwa_firmy, regon, nip, nr_tel, email, adresy } = createKlientDto;
+    const klient = await this.getKlienciById(id);
+
+    klient.imie = imie;
+    klient.nazwisko = nazwisko;
+    klient.nazwa_firmy = nazwa_firmy;
+    klient.regon = regon;
+    klient.nip = nip;
+    klient.nr_tel = nr_tel;
+    klient.email = email;
+    klient.adresy = adresy;
+
+    await klient.save();
+    return klient;
+  }
+
+  async deleteKlienci(
+    id: number,
+  ): Promise<void> {
+    const result = await this.klienciRepository.delete({ id });
+    
+    if(result.affected === 0) {
+      throw new NotFoundException(`Clients with ID "${id}" not found`);
+    }
+  }
+
+  async validateUser(authCredentialsDto: AuthCredentialsDto): Promise<Klienci> {
+    return await this.klienciRepository.validateUserPassword(authCredentialsDto);
   }
 }

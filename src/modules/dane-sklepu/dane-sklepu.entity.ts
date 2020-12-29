@@ -25,7 +25,7 @@ export class DaneSklepu extends BaseEntity {
     @OneToMany(type => Faktury, faktury => faktury.dane_sklepu, { eager: true })
     faktury: Faktury[];
 
-    @OneToOne(type => Adresy, adresy => adresy.dane_sklepu)
+    @OneToOne(type => Adresy, adresy => adresy.dane_sklepu, { eager: true, cascade: true })
     @JoinColumn()
-    adresy: Adresy;
+    adresy: Adresy | number;
 }

@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator'
+import { Produkty } from 'src/modules/produkty/produkty.entity';
 
 export class CreateZdjeciaProduktowDTO {
 
@@ -7,4 +8,6 @@ export class CreateZdjeciaProduktowDTO {
 
     @IsNotEmpty()
     data_dodania: string;
+
+    produkty: Produkty | number;
 }

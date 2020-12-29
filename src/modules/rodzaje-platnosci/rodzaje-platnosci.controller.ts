@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UsePipes, ValidationPipe } from "@nestjs/common";
 import { RodzajePlatnosciService } from "./rodzaje-platnosci.service";
 import { CreateRodzajePlatnosciDTO } from './dto/create-rodzaje-platnosci.dto';
 import { RodzajePlatnosci } from "./rodzaje-platnosci.entity";
@@ -26,7 +26,7 @@ export class RodzajePlatnosciController {
         return this.rodzajePlatnosciService.getRodzajePlatnosciById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
     @UsePipes(ValidationPipe)
     updateRodzajePlatnosci(
         @Param('id', ParseIntPipe) id: number,

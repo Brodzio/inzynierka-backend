@@ -42,9 +42,10 @@ export class StawkaVatService {
     id: number,
     updateStawkaVat: CreateStawkaVatDto,
   ): Promise<StawkaVat> {
-    const { stawka_vat } = updateStawkaVat;
+    const { stawka_vat, stawka_proc } = updateStawkaVat;
     const vat = await this.getStawkaVatById(id);
     vat.stawka_vat = stawka_vat;
+    vat.stawka_proc = stawka_proc;
     await vat.save();
     return vat;
   }

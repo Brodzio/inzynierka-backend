@@ -7,7 +7,7 @@ import { CreateDaneSklepuDTO } from './dto/create-dane-sklepu.dto';
 export class DaneSklepuRepository extends Repository<DaneSklepu> {
     
     async createDaneSklepu(createDaneSklepuDTO: CreateDaneSklepuDTO): Promise<DaneSklepu> {
-        const{ nazwa, email, nip, nr_tel } = createDaneSklepuDTO;
+        const{ nazwa, email, nip, nr_tel, adresy } = createDaneSklepuDTO;
 
         const company_data = new DaneSklepu();
         company_data.nazwa = nazwa;
@@ -18,6 +18,7 @@ export class DaneSklepuRepository extends Repository<DaneSklepu> {
             company_data.nip = "null"
         }
         company_data.nr_tel = nr_tel;
+        company_data.adresy = adresy;
 
         try {
             await company_data.save();

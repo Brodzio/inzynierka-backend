@@ -32,14 +32,14 @@ export class Faktury extends BaseEntity {
     @OneToMany(type => PozycjePlatnosci, pozycje_platnosci => pozycje_platnosci.faktury, { eager: true })
     pozycje_platnosci: PozycjePlatnosci[];
 
-    @ManyToOne(type => Adresy, adresy => adresy.faktury, { eager: false })
-    adresy: Adresy;
+    @ManyToOne(type => Adresy, adresy => adresy.faktury, { eager: false, cascade: true })
+    adresy: Adresy | number;
 
-    @ManyToOne(type => DaneSklepu, dane_sklepu => dane_sklepu.faktury, { eager: false }) 
-    dane_sklepu: DaneSklepu;
+    @ManyToOne(type => DaneSklepu, dane_sklepu => dane_sklepu.faktury, { eager: false, cascade: true }) 
+    dane_sklepu: DaneSklepu | number;
 
-    @ManyToOne(type => Klienci, klienci => klienci.faktury, { eager: false })
-    klienci: Klienci;
+    @ManyToOne(type => Klienci, klienci => klienci.faktury, { eager: false , cascade: true })
+    klienci: Klienci | number;
 
     @OneToMany(type => PozycjeFaktury, pozycje_faktury => pozycje_faktury.faktury, { eager: true })
     pozycje_faktury: PozycjeFaktury[];

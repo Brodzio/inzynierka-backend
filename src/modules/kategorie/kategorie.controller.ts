@@ -1,13 +1,16 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { Kategorie } from "./kategorie.entity";
 import { KategorieService } from "./kategorie.service";
 import { CreateKategorieDTO } from './dto/create-kategorie.dto';
+import { JwtPracownikAuthGuard } from '../../auth/jwt-pracownik-auth.guards';
 
 @Controller('category')
+@UseGuards(JwtPracownikAuthGuard)
 export class KategorieController {
     constructor(private kategorieService: KategorieService) {}
 
     @Post()
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     createKategorie(
         @Body() createKategorieDTO: CreateKategorieDTO,
@@ -26,7 +29,8 @@ export class KategorieController {
         return this.kategorieService.getKategorieById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     updateKategorie(
         @Param('id', ParseIntPipe) id: number,
@@ -36,6 +40,7 @@ export class KategorieController {
     }
 
     @Delete('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     deleteKategorie(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<void> {

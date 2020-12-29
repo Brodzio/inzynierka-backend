@@ -1,13 +1,15 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { JednostkiMiary } from "./jednostki-miary.entity";
 import { JednostkiMiaryService } from "./jednostki-miary.service";
 import { CreateJednostkiMiaryDTO } from './dto/create-jednostki-miary.dto';
+import { JwtPracownikAuthGuard } from '../../auth/jwt-pracownik-auth.guards';
 
 @Controller('units-measure')
 export class JednostkiMiaryController {
     constructor(private jednostkiMiaryService: JednostkiMiaryService) {}
 
     @Post()
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     createJednostkiMiary(
         @Body() createJednostkiMiaryDTO: CreateJednostkiMiaryDTO,
@@ -26,7 +28,8 @@ export class JednostkiMiaryController {
         return this.jednostkiMiaryService.getJednostkiMiaryById(id);
     }
 
-    @Patch('/:id')
+    @Put('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     @UsePipes(ValidationPipe)
     updateJednostkiMiary(
         @Param('id', ParseIntPipe) id: number,
@@ -36,6 +39,7 @@ export class JednostkiMiaryController {
     }
 
     @Delete('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
     deleteJednostkiMiary(
         @Param('id', ParseIntPipe) id: number,
     ): Promise<void> {

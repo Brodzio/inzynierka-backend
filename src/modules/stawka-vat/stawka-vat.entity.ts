@@ -9,6 +9,12 @@ export class StawkaVat extends BaseEntity{
     @Column()
     stawka_vat: string;
 
+    @Column()
+    czy_aktywne: boolean;
+
+    @Column()
+    stawka_proc: number;
+
     @OneToMany(type => Produkty, produkty => produkty.stawka_vat, { eager: true })
     produkty: Produkty[];
 }

@@ -12,7 +12,11 @@ export class ProduktyService {
         private produktyRepository: ProduktyRepository,
     ) {}
 
-    async createProdukt(createProduktyDto: CreateProduktyDto): Promise<Produkty> {
+    async createProdukt(
+        createProduktyDto: CreateProduktyDto,
+        //req
+    ): Promise<Produkty> {
+        console.log(createProduktyDto);
         return this.produktyRepository.createProdukt(createProduktyDto);
     }
 

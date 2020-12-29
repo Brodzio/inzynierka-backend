@@ -33,12 +33,13 @@ export class DaneSklepuService {
         id: number,
         createDaneSklepuDTO: CreateDaneSklepuDTO
     ): Promise<DaneSklepu> {
-        const { nazwa, email, nip, nr_tel } = createDaneSklepuDTO;
+        const { nazwa, email, nip, nr_tel, adresy } = createDaneSklepuDTO;
         const company_data = await this.getDaneSklepuById(id);
         company_data.nazwa = nazwa;
         company_data.email = email;
         company_data.nip = nip;
         company_data.nr_tel = nr_tel;
+        company_data.adresy = adresy;
         await company_data.save();
         return company_data;
     }

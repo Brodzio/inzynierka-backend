@@ -1,6 +1,7 @@
 import { IsNotEmpty, IsString, MinLength, MaxLength, Matches } from 'class-validator';
+import { Adresy } from '../../adresy/adresy.entity';
 
-export class CreatePracownikDto {
+export class CreatePracownicyDto {
     @IsNotEmpty()
     imie: string;
 
@@ -30,6 +31,8 @@ export class CreatePracownikDto {
     @IsNotEmpty()
     data_zatrudnienia: string;
 
-    @IsNotEmpty()
     data_zwolnienia: string;
+
+    @IsNotEmpty()
+    adresy: Adresy | number;
 }
