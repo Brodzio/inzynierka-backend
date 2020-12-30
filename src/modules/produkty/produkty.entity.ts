@@ -54,7 +54,7 @@ export class Produkty extends BaseEntity {
     })
     statusy: StatusValue;
 
-    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.produkty, { eager: true })
+    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.produkt, { eager: true })
     pozycje_zamowienia: PozycjeZamowienia[];
 
     @OneToMany(type => ZdjeciaProduktow, zdjecia_produktow => zdjecia_produktow.produkty, { eager: true })

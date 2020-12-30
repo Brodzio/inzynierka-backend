@@ -22,7 +22,7 @@ export class PozycjeZamowienia extends BaseEntity {
     zamowienia: Zamowienia;
 
     @ManyToOne(type => Produkty, produkty => produkty.pozycje_zamowienia, { eager: false })
-    produkty: Produkty;
+    produkt: Produkty;
 
     @OneToOne(type => PozycjeFaktury, pozycje_faktury => pozycje_faktury.pozycje_zamowienia)
     pozycje_faktury: PozycjeFaktury;

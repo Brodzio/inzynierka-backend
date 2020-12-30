@@ -10,16 +10,16 @@ export class Zamowienia extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     data_zlozenia: string;
 
-    @Column()
+    @Column({ nullable: true })
     data_przyjecia: string;
 
-    @Column()
+    @Column({ nullable: true })
     data_wysylki: string;
 
-    @Column()
+    @Column({ nullable: true })
     data_realizacji: string;
 
     @ManyToOne(type => Adresy, adresy => adresy.zamowienia, { eager: false, cascade: true })
@@ -35,6 +35,6 @@ export class Zamowienia extends BaseEntity {
     })
     statusy: StatusValue;
 
-    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { eager: true })
+    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { eager: true, cascade: true})
     pozycje_zamowienia: PozycjeZamowienia[];
 }

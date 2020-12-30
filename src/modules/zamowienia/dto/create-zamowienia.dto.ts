@@ -5,13 +5,9 @@ import { Klienci } from "src/modules/klienci/klienci.entity";
 export class CreateZamowieniDTO {
 
     @IsNotEmpty()
-    data_zlozenia: string;
+    id: number;
 
-    data_przyjecia: string;
+    rodzaj_dokumentu: string;
 
-    data_wysylki: string;
-
-    data_realizacji: string;
-
-    adresy: Adresy | number;
+    produkty: {id:number, ilosc: number}[];
 }
