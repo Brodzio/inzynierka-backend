@@ -7,14 +7,6 @@ import { RodzajePlatnosci } from "./rodzaje-platnosci.entity";
 export class RodzajePlatnosciController {
     constructor(private rodzajePlatnosciService: RodzajePlatnosciService) {}
 
-    @Post()
-    @UsePipes(ValidationPipe)
-    createRodzajePlatnosci(
-        @Body() createRodzajePlatnosciDTO: CreateRodzajePlatnosciDTO,
-    ): Promise<RodzajePlatnosci> {
-        return this.rodzajePlatnosciService.createRodzajePlatnosci(createRodzajePlatnosciDTO);
-    }
-
     @Get()
     getRodzajePlatnosci(): Promise<RodzajePlatnosci[]> {
         return this.rodzajePlatnosciService.getRodzajePlatnosci();

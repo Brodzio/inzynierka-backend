@@ -39,7 +39,7 @@ export class FakturyService {
             pozycjaFaktury.data_sprzedazy = new Date();
             pozycjeFaktury.push(pozycjaFaktury);
         }
-        return this.fakturyRepository.createFaktury(zamowienia, pozycjeFaktury, suma_netto, suma_brutto, daneSklepu);
+        return await this.fakturyRepository.createFaktury(zamowienia, pozycjeFaktury, suma_netto, suma_brutto, daneSklepu);
     }
 
     async getFaktury(): Promise<Faktury[]> {

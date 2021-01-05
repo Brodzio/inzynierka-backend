@@ -9,6 +9,7 @@ import { RodzajePlatnosciService } from "./rodzaje-platnosci.service";
         TypeOrmModule.forFeature([RodzajePlatnosciRepository])
     ],
     controllers: [RodzajePlatnosciController],
-    providers: [RodzajePlatnosciService]
+    providers: [RodzajePlatnosciService],
+    exports: [RodzajePlatnosciService]
 })
 export class RodzajePlatnosciModule {}

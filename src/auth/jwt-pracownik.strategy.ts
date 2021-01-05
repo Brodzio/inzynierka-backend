@@ -13,7 +13,6 @@ export class JwtPracownikStrategy extends PassportStrategy(Strategy, 'jwt-pracow
   }
 
   async validate(payload: any) {
-    console.log(payload);
     if(payload.role == 'pracownik') {
         return { userId: payload.sub, username: payload.username, role: payload.role };
     }

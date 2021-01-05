@@ -1,16 +1,21 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
-import { CreatePlatnosciDTO } from './dto/create-platnosci.dto';
+import { PozycjePlatnosci } from '../pozycje-platnosci/pozycje-platnosci.entity';
 import { Platnosci } from './platnosci.entity';
+import { RodzajePlatnosci } from '../rodzaje-platnosci/rodzaje-platnosci.entity';
 
 @EntityRepository(Platnosci)
 export class PlatnosciRepository extends Repository<Platnosci> {
     
-    async createPlatnosci(createPlatnosciDTO: CreatePlatnosciDTO): Promise<Platnosci> {
-        const{ data_platnosci } = createPlatnosciDTO;
+    async createPlatnosci(
+        rodzajePlatnosci: RodzajePlatnosci,
+        pozycjePlatnosci: PozycjePlatnosci[]
+    ): Promise<Platnosci> {
 
         const platnosc = new Platnosci();
-        platnosc.data_platnosci = data_platnosci;
+        platnosc.data_platnosci = new Date();
+        platnosc.pozycje_platnosci = pozycjePlatnosci;
+        platnosc.rodzaje_platnosci = rodzajePlatnosci;
 
         try {
             await platnosc.save();

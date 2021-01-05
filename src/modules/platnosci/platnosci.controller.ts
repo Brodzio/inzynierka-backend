@@ -9,15 +9,6 @@ import { JwtAuthGuard } from "src/auth/jwt-auth.guards";
 export class PlatnosciController {
     constructor(private platnosciService: PlatnosciService) {}
 
-    @Post()
-    @UseGuards(JwtPracownikAuthGuard)
-    @UsePipes(ValidationPipe)
-    createPlatnosci(
-        @Body() createPlatnosciDTO: CreatePlatnosciDTO,
-    ): Promise<Platnosci> {
-        return this.platnosciService.createPlatnosci(createPlatnosciDTO);
-    }
-
     @Get()
     @UseGuards(JwtPracownikAuthGuard)
     getPlatnosci(): Promise<Platnosci[]> {

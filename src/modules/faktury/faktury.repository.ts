@@ -27,17 +27,18 @@ export class FakturyRepository extends Repository<Faktury> {
         faktura.dane_sklepu = daneSklepu;
         faktura.klienci = zamowienia.klienci;
         faktura.pozycje_faktury = pozycjeFaktury;
-
+        
         try {
             await faktura.save();
         } catch (error) {
+            console.log(error)
             throw new InternalServerErrorException();
         }
         return faktura;
     }
 
     async getFaktury(): Promise<Faktury[]> {
-        const query = this.createQueryBuilder('aktualnosci');
+        const query = this.createQueryBuilder('faktury');
 
         const faktura = await query.getMany();
 

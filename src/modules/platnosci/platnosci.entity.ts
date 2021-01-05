@@ -9,11 +9,11 @@ export class Platnosci extends BaseEntity {
     id: number;
 
     @Column()
-    data_platnosci: string;
+    data_platnosci: Date;
 
     @ManyToOne(type => RodzajePlatnosci, rodzaje_platnosci => rodzaje_platnosci.platnosci, { eager: true, cascade: true })
     rodzaje_platnosci: RodzajePlatnosci | number;
 
-    @OneToMany(type => PozycjePlatnosci, pozycje_platnosci => pozycje_platnosci.platnosci)
+    @OneToMany(type => PozycjePlatnosci, pozycje_platnosci => pozycje_platnosci.platnosci, { cascade: true })
     pozycje_platnosci: PozycjePlatnosci[];
 }

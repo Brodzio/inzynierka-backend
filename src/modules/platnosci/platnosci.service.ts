@@ -3,16 +3,31 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CreatePlatnosciDTO } from "./dto/create-platnosci.dto";
 import { PlatnosciRepository } from "./platnosci.repository";
 import { Platnosci } from './platnosci.entity';
+import { PozycjePlatnosci } from '../pozycje-platnosci/pozycje-platnosci.entity';
+import { Faktury } from '../faktury/faktury.entity';
+import { RodzajePlatnosciService } from '../rodzaje-platnosci/rodzaje-platnosci.service';
+import { RodzajePlatnosci } from '../rodzaje-platnosci/rodzaje-platnosci.entity';
 
 @Injectable()
 export class PlatnosciService {
     constructor(
         @InjectRepository(PlatnosciRepository)
         private platnosciRepository: PlatnosciRepository,
+        private rodzajePlatnosciService: RodzajePlatnosciService
     ) {}
 
-    async createPlatnosci(createPlatnosciDTO: CreatePlatnosciDTO): Promise<Platnosci> {
-        return this.platnosciRepository.createPlatnosci(createPlatnosciDTO);
+    async createPlatnosci(
+        createPlatnosciDTO: CreatePlatnosciDTO,
+        faktura: Faktury
+    ): Promise<Platnosci> {
+        let pozycjePlatnosci: PozycjePlatnosci[] = new Array<PozycjePlatnosci>();
+        let rodzajePlatnosci: RodzajePlatnosci = await this.rodzajePlatnosciService.createRodzajePlatnosci(createPlatnosciDTO);
+        for( let i = 0; i<faktura.pozycje_faktury.length; i++) {
+            let pozycjaPlatnosci: PozycjePlatnosci = {} as PozycjePlatnosci;
+            pozycjaPlatnosci.faktury = faktura;
+            pozycjePlatnosci.push(pozycjaPlatnosci);
+        }
+        return this.platnosciRepository.createPlatnosci(rodzajePlatnosci, pozycjePlatnosci);
     }
 
     async getPlatnosci(): Promise<Platnosci[]> {
@@ -33,9 +48,9 @@ export class PlatnosciService {
         id: number,
         createPlatnosciDTO: CreatePlatnosciDTO,
     ): Promise<Platnosci> {
-        const { data_platnosci } = createPlatnosciDTO;
+        //const { data_platnosci } = createPlatnosciDTO;
         const platnosc = await this.getPlatnosciById(id);
-        platnosc.data_platnosci = data_platnosci;
+        //platnosc.data_platnosci = data_platnosci;
         await platnosc.save();
         return platnosc;
     }

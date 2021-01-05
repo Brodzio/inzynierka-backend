@@ -10,6 +10,8 @@ import { PozycjeZamowienia } from '../pozycje-zamowienia/pozycje-zamowienia.enti
 import { StatusValue } from 'src/enum/statusy.enum';
 import { FakturyService } from '../faktury/faktury.service';
 import { CreateFakturyDto } from '../faktury/dto/create-faktury.dto';
+import { Faktury } from '../faktury/faktury.entity';
+import { PlatnosciService } from '../platnosci/platnosci.service';
 
 @Injectable()
 export class ZamowieniaService {
@@ -18,7 +20,8 @@ export class ZamowieniaService {
         private zamowieniaRepository: ZamowieniaRepository,
         private klienciService: KlienciService,
         private produktyService: ProduktyService,
-        private fakturyService: FakturyService
+        private fakturyService: FakturyService,
+        private platnosciService: PlatnosciService
     ) {}
 
     async createZamowienia( createZamowieniaDTO: CreateZamowieniDTO, user ): Promise<Zamowienia> {
@@ -69,13 +72,15 @@ export class ZamowieniaService {
         createFakturyDto: CreateFakturyDto
     ): Promise<any> {
         const zamowienia = await this.getZamowieniaById(id);
+        let faktura: Faktury;
         
         switch(zamowienia.statusy) {
             case StatusValue.PENDING:        
                 zamowienia.data_przyjecia = new Date();
                 zamowienia.statusy = StatusValue.ACCEPTED;
                 zamowienia.save();
-                this.fakturyService.createFaktury(createFakturyDto, zamowienia);
+                faktura = await this.fakturyService.createFaktury(createFakturyDto, zamowienia);
+                await this.platnosciService.createPlatnosci(createFakturyDto, faktura);
                 break;
             case StatusValue.ACCEPTED:
                 zamowienia.data_wysylki = new Date();
