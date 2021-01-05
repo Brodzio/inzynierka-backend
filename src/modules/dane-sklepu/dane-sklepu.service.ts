@@ -12,21 +12,16 @@ export class DaneSklepuService {
     ) {}
 
     async createDaneSklepu(createDaneSklepuDTO: CreateDaneSklepuDTO): Promise<DaneSklepu> {
-        return this.daneSklepuRepository.createDaneSklepu(createDaneSklepuDTO);
-    }
-
-    async getDaneSklepu(): Promise<DaneSklepu[]> {
-        return this.daneSklepuRepository.getDaneSklepu();
-    }
-
-    async getDaneSklepuById(id: number): Promise<DaneSklepu> {
-        const found = await this.daneSklepuRepository.findOne({ id });
-
-        if(!found) {
-            throw new NotFoundException(`Company details with ID "${id}" not found`);
+        const company_data = await this.getDaneSklepu();
+        if(company_data) {
+            return null;
+        } else {
+            return this.daneSklepuRepository.createDaneSklepu(createDaneSklepuDTO);
         }
+    }
 
-        return found;
+    async getDaneSklepu(): Promise<DaneSklepu> {
+        return this.daneSklepuRepository.getDaneSklepu();
     }
 
     async updateDaneSklepu(
@@ -34,7 +29,7 @@ export class DaneSklepuService {
         createDaneSklepuDTO: CreateDaneSklepuDTO
     ): Promise<DaneSklepu> {
         const { nazwa, email, nip, nr_tel, adresy } = createDaneSklepuDTO;
-        const company_data = await this.getDaneSklepuById(id);
+        const company_data = await this.getDaneSklepu();
         company_data.nazwa = nazwa;
         company_data.email = email;
         company_data.nip = nip;

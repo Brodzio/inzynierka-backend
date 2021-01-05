@@ -11,21 +11,24 @@ export class Zamowienia extends BaseEntity {
     id: number;
 
     @Column({ nullable: true })
-    data_zlozenia: string;
+    data_zlozenia: Date;
 
     @Column({ nullable: true })
-    data_przyjecia: string;
+    data_przyjecia: Date;
 
     @Column({ nullable: true })
-    data_wysylki: string;
+    data_wysylki: Date;
 
     @Column({ nullable: true })
-    data_realizacji: string;
+    data_realizacji: Date;
 
-    @ManyToOne(type => Adresy, adresy => adresy.zamowienia, { eager: false, cascade: true })
+    @Column()
+    rodzaj_dokumentu: string;
+
+    @ManyToOne(type => Adresy, adresy => adresy.zamowienia, { eager: true, cascade: true })
     adresy: Adresy | number;
 
-    @ManyToOne(type => Klienci, klienci => klienci.zamowienia, { eager: false, cascade: true })
+    @ManyToOne(type => Klienci, klienci => klienci.zamowienia, { eager: true, cascade: true })
     klienci: Klienci | number;
 
     @Column({
@@ -35,6 +38,6 @@ export class Zamowienia extends BaseEntity {
     })
     statusy: StatusValue;
 
-    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { eager: true, cascade: true})
+    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { cascade: true})
     pozycje_zamowienia: PozycjeZamowienia[];
 }

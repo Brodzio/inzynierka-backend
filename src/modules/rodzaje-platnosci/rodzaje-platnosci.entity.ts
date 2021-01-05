@@ -10,6 +10,6 @@ export class RodzajePlatnosci extends BaseEntity {
     @Column()
     nazwa_platnosci: string;
 
-    @OneToMany(type => Platnosci, platnosci => platnosci.rodzaje_platnosci, { eager: true })
+    @OneToMany(type => Platnosci, platnosci => platnosci.rodzaje_platnosci)
     platnosci: Platnosci[];
 }

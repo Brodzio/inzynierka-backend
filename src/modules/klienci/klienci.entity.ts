@@ -47,10 +47,10 @@ export class Klienci extends BaseEntity {
     return hash === this.haslo;
   }
 
-  @OneToMany(type => Faktury, faktury => faktury.klienci, { eager: true })
+  @OneToMany(type => Faktury, faktury => faktury.klienci)
   faktury: Faktury[];
 
-  @OneToMany(type => Zamowienia, zamowienia => zamowienia.klienci, { eager: true })
+  @OneToMany(type => Zamowienia, zamowienia => zamowienia.klienci)
   zamowienia: Zamowienia[];
 
   @OneToOne(type => Adresy, adresy => adresy.klienci, { eager: true, cascade: true })

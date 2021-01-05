@@ -10,6 +10,6 @@ export class JednostkiMiary extends BaseEntity {
     @Column()
     nazwa: string;
 
-    @OneToMany(type => Produkty, produkty => produkty.jednostki_miary, { eager: true })
+    @OneToMany(type => Produkty, produkty => produkty.jednostki_miary)
     produkty: Produkty[];
 }

@@ -1,26 +1,32 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
-import { CreateFakturyDto } from './dto/create-faktury.dto';
 import { Faktury } from './faktury.entity';
+import { Zamowienia } from '../zamowienia/zamowienia.entity';
+import * as uuid from 'uuid';
+import { PozycjeFaktury } from '../pozycje-faktury/pozycje-faktury.entity';
+import { DaneSklepu } from '../dane-sklepu/dane-sklepu.entity';
 
 @EntityRepository(Faktury)
 export class FakturyRepository extends Repository<Faktury> {
 
-    async createFaktury(createFakturyDto: CreateFakturyDto): Promise<Faktury> {
-        const{ nr_faktury, data_sprzedazy, wartosc_netto, wartosc_brutto, wartosc_vat, rodzaj_dokumentu, adresy, dane_sklepu, klienci } = createFakturyDto;
+    async createFaktury(
+        zamowienia: Zamowienia,
+        pozycjeFaktury: PozycjeFaktury[],
+        suma_netto: number,
+        suma_brutto: number,
+        daneSklepu: DaneSklepu
+    ): Promise<Faktury> {
 
         const faktura = new Faktury();
-        faktura.nr_faktury = nr_faktury;
-        faktura.data_sprzedazy = data_sprzedazy;
-        faktura.wartosc_netto = wartosc_netto;
-        faktura.wartosc_brutto = wartosc_brutto;
-        faktura.wartosc_vat = wartosc_vat;
-        faktura.rodzaj_dokumentu = rodzaj_dokumentu;
-        faktura.adresy = adresy;
-        if(dane_sklepu) {
-            faktura.dane_sklepu = dane_sklepu;
-        }
-        faktura.klienci = klienci;
+        faktura.nr_faktury = uuid.v4();
+        faktura.data_sprzedazy = new Date();
+        faktura.wartosc_netto = suma_netto;
+        faktura.wartosc_brutto = suma_brutto;
+        faktura.rodzaj_dokumentu = zamowienia.rodzaj_dokumentu;
+        faktura.adresy = zamowienia.adresy;
+        faktura.dane_sklepu = daneSklepu;
+        faktura.klienci = zamowienia.klienci;
+        faktura.pozycje_faktury = pozycjeFaktury;
 
         try {
             await faktura.save();

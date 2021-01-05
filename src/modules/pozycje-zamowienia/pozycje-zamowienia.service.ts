@@ -10,12 +10,8 @@ export class PozycjeZamowieniaService {
         private pozycjeZamowieniaRepository: PozycjeZamowieniaRepository,
     ) {}
 
-    getZamowienie(): Promise<PozycjeZamowienia>{
-        return null; //proszę dokonczyc jak sie przyda
-    }
-
-    createPozycjeZamowienie(pozycjaZamowien: PozycjeZamowienia): Promise<PozycjeZamowienia>{
-        //neiwazne
-        return null;
+    async getZamowienia(id: number): Promise<PozycjeZamowienia[]>{
+        const pozycje: PozycjeZamowienia[] = await this.pozycjeZamowieniaRepository.find({ where: { zamowienia: id }});
+        return pozycje;
     }
 }

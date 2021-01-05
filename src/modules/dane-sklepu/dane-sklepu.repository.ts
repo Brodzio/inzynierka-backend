@@ -28,10 +28,8 @@ export class DaneSklepuRepository extends Repository<DaneSklepu> {
         return company_data;
     }
 
-    async getDaneSklepu(): Promise<DaneSklepu[]> {
-        const query = this.createQueryBuilder('dane_sklepu');
-
-        const company_data = await query.getMany();
+    async getDaneSklepu(): Promise<DaneSklepu> {
+        const company_data = await this.findOne();
 
         return company_data;
     }

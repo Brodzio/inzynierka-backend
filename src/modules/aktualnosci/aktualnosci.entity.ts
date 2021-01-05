@@ -21,6 +21,6 @@ export class Aktualnosci extends BaseEntity {
     @Column()
     zdjecie: string;
 
-    @OneToMany(type => Komentarze, komentarze => komentarze.aktualnosci, { eager: true })
+    @OneToMany(type => Komentarze, komentarze => komentarze.aktualnosci)
     komentarze: Komentarze[];
 }

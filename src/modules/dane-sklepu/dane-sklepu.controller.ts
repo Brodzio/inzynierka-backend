@@ -20,15 +20,8 @@ export class DaneSklepuController {
 
     @Get()
     @UseGuards(JwtPracownikAuthGuard)
-    getDaneSklepu(): Promise<DaneSklepu[]> {
+    getDaneSklepu(): Promise<DaneSklepu> {
         return this.daneSklepuServie.getDaneSklepu();
-    }
-
-    @Get('/:id')
-    @UseGuards(JwtAuthGuard)
-    getDaneSklepuById(
-        @Param('id', ParseIntPipe) id : number): Promise<DaneSklepu> {
-        return this.daneSklepuServie.getDaneSklepuById(id);
     }
 
     @Put('/:id')

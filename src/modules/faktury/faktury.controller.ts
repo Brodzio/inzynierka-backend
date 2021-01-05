@@ -9,14 +9,6 @@ import { JwtPracownikAuthGuard } from "src/auth/jwt-pracownik-auth.guards";
 export class FakturyController {
     constructor(private fakturyService: FakturyService) {}
 
-    @Post()
-    @UsePipes(ValidationPipe)
-    createFaktury(
-        @Body() createFakturyDto: CreateFakturyDto,
-    ): Promise<Faktury> {
-        return this.fakturyService.createFaktury(createFakturyDto);
-    }
-
     @Get()
     getFaktury(): Promise<Faktury[]> {
         return this.fakturyService.getFaktury();

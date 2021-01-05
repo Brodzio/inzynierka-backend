@@ -28,13 +28,13 @@ export class Adresy extends BaseEntity {
     @Column()
     kod_pocztowy: string;
 
-    @OneToMany(type => Faktury, faktury => faktury.adresy, { eager: true })
+    @OneToMany(type => Faktury, faktury => faktury.adresy)
     faktury: Faktury[];
 
     @OneToOne(type => DaneSklepu, dane_sklepu => dane_sklepu.adresy)
     dane_sklepu: DaneSklepu;
 
-    @OneToMany(type => Zamowienia, zamowienia => zamowienia.adresy, { eager: true })
+    @OneToMany(type => Zamowienia, zamowienia => zamowienia.adresy)
     zamowienia: Zamowienia[];
 
     @OneToOne(type => Pracownicy, pracownicy => pracownicy.adresy)

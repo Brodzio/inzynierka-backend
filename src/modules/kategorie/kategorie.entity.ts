@@ -10,6 +10,6 @@ export class Kategorie extends BaseEntity {
     @Column()
     nazwa_kategorii: string;
 
-    @OneToMany(type => Produkty, produkty => produkty.kategorie, { eager: true })
+    @OneToMany(type => Produkty, produkty => produkty.kategorie)
     produkty: Produkty[];
 }

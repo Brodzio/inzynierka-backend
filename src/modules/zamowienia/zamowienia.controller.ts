@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Put, Req, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ZamowieniaService } from "./zamowienia.service";
 import { CreateZamowieniDTO } from './dto/create-zamowienia.dto';
 import { Zamowienia } from './zamowienia.entity';
 import { JwtPracownikAuthGuard } from '../../auth/jwt-pracownik-auth.guards';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guards';
+import { CreateFakturyDto } from '../faktury/dto/create-faktury.dto';
 
 @Controller('orders')
 export class ZamowieniaController {
@@ -32,14 +33,23 @@ export class ZamowieniaController {
         return this.zamowieniaService.getZamowieniaById(id);
     }
 
+    @Patch('/:id')
+    @UseGuards(JwtPracownikAuthGuard)
+    updateZamowieniaStatus(
+        @Param('id', ParseIntPipe) id: number,
+        @Body() createFakturyDto: CreateFakturyDto
+    ): Promise<any> {
+        return this.zamowieniaService.updateZamowieniaStatus(id, createFakturyDto);
+    }
+
     @Put('/:id')
     @UseGuards(JwtAuthGuard)
     @UsePipes(ValidationPipe)
     updateZamowienia(
         @Param('id', ParseIntPipe) id: number,
-        @Body() createZamowieniaDTO: CreateZamowieniDTO,
+        // @Body() createZamowieniaDTO: CreateZamowieniDTO
         ): Promise<Zamowienia> {
-        return this.zamowieniaService.updateZamowienia(id, createZamowieniaDTO);
+        return this.zamowieniaService.updateZamowienia(id);
     }
 
     @Delete('/:id')

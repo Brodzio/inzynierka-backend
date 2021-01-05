@@ -11,36 +11,37 @@ export class Faktury extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ unique: true })
     nr_faktury: string;
 
     @Column()
-    data_sprzedazy: string;
+    data_sprzedazy: Date;
 
-    @Column()
-    wartosc_netto: string;
+    @Column({
+        type: "float"
+    })
+    wartosc_netto: number;
 
-    @Column()
-    wartosc_brutto: string;
-
-    @Column()
-    wartosc_vat: string;
+    @Column({
+        type: "float"
+    })
+    wartosc_brutto: number;
 
     @Column()
     rodzaj_dokumentu: string;
 
-    @OneToMany(type => PozycjePlatnosci, pozycje_platnosci => pozycje_platnosci.faktury, { eager: true })
+    @OneToMany(type => PozycjePlatnosci, pozycje_platnosci => pozycje_platnosci.faktury, { cascade: true })
     pozycje_platnosci: PozycjePlatnosci[];
 
-    @ManyToOne(type => Adresy, adresy => adresy.faktury, { eager: false, cascade: true })
+    @ManyToOne(type => Adresy, adresy => adresy.faktury, { eager: true, cascade: true })
     adresy: Adresy | number;
 
-    @ManyToOne(type => DaneSklepu, dane_sklepu => dane_sklepu.faktury, { eager: false, cascade: true }) 
+    @ManyToOne(type => DaneSklepu, dane_sklepu => dane_sklepu.faktury, { eager: true, cascade: true }) 
     dane_sklepu: DaneSklepu | number;
 
-    @ManyToOne(type => Klienci, klienci => klienci.faktury, { eager: false , cascade: true })
+    @ManyToOne(type => Klienci, klienci => klienci.faktury, { eager: true , cascade: true })
     klienci: Klienci | number;
 
-    @OneToMany(type => PozycjeFaktury, pozycje_faktury => pozycje_faktury.faktury, { eager: true })
+    @OneToMany(type => PozycjeFaktury, pozycje_faktury => pozycje_faktury.faktury, {  cascade: true })
     pozycje_faktury: PozycjeFaktury[];
 }

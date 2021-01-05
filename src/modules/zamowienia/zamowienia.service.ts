@@ -1,5 +1,4 @@
 import { KlienciService } from './../klienci/klienci.service';
-import { KlienciRepository } from './../klienci/klient.repository';
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { ZamowieniaRepository } from "./zamowienia.repository";
@@ -7,8 +6,10 @@ import { CreateZamowieniDTO } from './dto/create-zamowienia.dto';
 import { Zamowienia } from './zamowienia.entity';
 import { Klienci } from '../klienci/klienci.entity';
 import { ProduktyService } from '../produkty/produkty.service';
-import { Produkty } from '../produkty/produkty.entity';
 import { PozycjeZamowienia } from '../pozycje-zamowienia/pozycje-zamowienia.entity';
+import { StatusValue } from 'src/enum/statusy.enum';
+import { FakturyService } from '../faktury/faktury.service';
+import { CreateFakturyDto } from '../faktury/dto/create-faktury.dto';
 
 @Injectable()
 export class ZamowieniaService {
@@ -16,7 +17,8 @@ export class ZamowieniaService {
         @InjectRepository(ZamowieniaRepository)
         private zamowieniaRepository: ZamowieniaRepository,
         private klienciService: KlienciService,
-        private produktyService: ProduktyService
+        private produktyService: ProduktyService,
+        private fakturyService: FakturyService
     ) {}
 
     async createZamowienia( createZamowieniaDTO: CreateZamowieniDTO, user ): Promise<Zamowienia> {
@@ -32,8 +34,7 @@ export class ZamowieniaService {
             pozycjaZamowienia.cena_brutto = (pozycjaZamowienia.ilosc * Number.parseFloat(produkt.cena_brutto)).toFixed(2);
             pozycjeZamowienia.push(pozycjaZamowienia);
         }
-
-        return this.zamowieniaRepository.createZamowienia(createZamowieniaDTO, klient, pozycjeZamowienia);
+        return this.zamowieniaRepository.createZamowienia( klient, pozycjeZamowienia, createZamowieniaDTO);
     }
 
     async getZamowienia(): Promise<Zamowienia[]> {
@@ -52,15 +53,42 @@ export class ZamowieniaService {
 
     async updateZamowienia(
         id: number,
-        createZamowieniaDTO: CreateZamowieniDTO
+        // createZamowieniaDTO: CreateZamowieniDTO
     ): Promise<Zamowienia> {
         const zamowienie = await this.getZamowieniaById(id);
-        zamowienie.data_zlozenia = new Date().toDateString();
+        zamowienie.data_zlozenia = new Date();
         zamowienie.data_przyjecia = null;
         zamowienie.data_wysylki = null;
         zamowienie.data_realizacji = null;
         await zamowienie.save();
         return zamowienie;
+    }
+
+    async updateZamowieniaStatus(
+        id: number,
+        createFakturyDto: CreateFakturyDto
+    ): Promise<any> {
+        const zamowienia = await this.getZamowieniaById(id);
+        
+        switch(zamowienia.statusy) {
+            case StatusValue.PENDING:        
+                zamowienia.data_przyjecia = new Date();
+                zamowienia.statusy = StatusValue.ACCEPTED;
+                zamowienia.save();
+                this.fakturyService.createFaktury(createFakturyDto, zamowienia);
+                break;
+            case StatusValue.ACCEPTED:
+                zamowienia.data_wysylki = new Date();
+                zamowienia.statusy = StatusValue.SEND;
+                zamowienia.save();
+                break;
+            case StatusValue.SEND:
+                zamowienia.data_realizacji = new Date();
+                zamowienia.statusy = StatusValue.EXECUTED;
+                zamowienia.save();
+            default:
+                break;
+        }
     }
 
     async deleteZamowienia(

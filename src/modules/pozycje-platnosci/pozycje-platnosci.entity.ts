@@ -8,9 +8,9 @@ export class PozycjePlatnosci extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToOne(type => Platnosci, platnosci => platnosci.pozycje_platnosci, { eager: false })
+    @ManyToOne(type => Platnosci, platnosci => platnosci.pozycje_platnosci, { eager: true })
     platnosci: Platnosci;
 
-    @ManyToOne(type => Faktury, faktury => faktury.pozycje_platnosci, { eager: false })
+    @ManyToOne(type => Faktury, faktury => faktury.pozycje_platnosci, { eager: true })
     faktury: Faktury;
 }

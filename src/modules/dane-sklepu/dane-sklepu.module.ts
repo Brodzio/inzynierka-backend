@@ -10,5 +10,6 @@ import { DaneSklepuService } from "./dane-sklepu.service";
     ],
     controllers: [DaneSklepuController],
     providers: [DaneSklepuService],
+    exports: [DaneSklepuService]
 })
 export class DaneSklepuModule {}

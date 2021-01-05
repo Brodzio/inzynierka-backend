@@ -35,16 +35,16 @@ export class Produkty extends BaseEntity {
     @Column({ unique: true })
     kod_produktu: string;
 
-    @ManyToOne(type => Producenci, producenci => producenci.produkty, { eager: false, cascade: true })
+    @ManyToOne(type => Producenci, producenci => producenci.produkty, { eager: true, cascade: true })
     producenci: Producenci | number;
 
-    @ManyToOne(type => Kategorie, kategorie => kategorie.produkty, { eager: false, cascade: true  })
+    @ManyToOne(type => Kategorie, kategorie => kategorie.produkty, { eager: true, cascade: true  })
     kategorie: Kategorie | number;
 
-    @ManyToOne(type => JednostkiMiary, jednostki_miary => jednostki_miary.produkty, { eager: false, cascade: true  })
+    @ManyToOne(type => JednostkiMiary, jednostki_miary => jednostki_miary.produkty, { eager: true, cascade: true  })
     jednostki_miary: JednostkiMiary | number;
 
-    @ManyToOne(type => StawkaVat, stawka_vat => stawka_vat.produkty, { eager: false, cascade: true  })
+    @ManyToOne(type => StawkaVat, stawka_vat => stawka_vat.produkty, { eager: true, cascade: true  })
     stawka_vat: StawkaVat | number;
 
     @Column({
@@ -54,12 +54,12 @@ export class Produkty extends BaseEntity {
     })
     statusy: StatusValue;
 
-    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.produkt, { eager: true })
+    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.produkt)
     pozycje_zamowienia: PozycjeZamowienia[];
 
-    @OneToMany(type => ZdjeciaProduktow, zdjecia_produktow => zdjecia_produktow.produkty, { eager: true })
+    @OneToMany(type => ZdjeciaProduktow, zdjecia_produktow => zdjecia_produktow.produkty)
     zdjecia_produktow: ZdjeciaProduktow[];
 
-    @OneToMany(type => Komentarze, komentarze => komentarze.produkty, { eager: true })
+    @OneToMany(type => Komentarze, komentarze => komentarze.produkty)
     komentarze: Komentarze[];
 }

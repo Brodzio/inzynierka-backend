@@ -19,9 +19,9 @@ export class Komentarze extends BaseEntity {
     })
     opis: string;
 
-    @ManyToOne(type => Produkty, produkty => produkty.komentarze, { eager: false, cascade: true })
+    @ManyToOne(type => Produkty, produkty => produkty.komentarze, { eager: true, cascade: true })
     produkty: Produkty | number;
 
-    @ManyToOne(type => Aktualnosci, aktualnosci => aktualnosci.komentarze, { eager: false, cascade: true })
+    @ManyToOne(type => Aktualnosci, aktualnosci => aktualnosci.komentarze, { eager: true, cascade: true })
     aktualnosci: Aktualnosci | number;
 }

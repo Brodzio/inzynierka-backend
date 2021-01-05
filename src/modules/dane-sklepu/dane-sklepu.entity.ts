@@ -22,7 +22,7 @@ export class DaneSklepu extends BaseEntity {
     @Column()
     nr_tel: string;
 
-    @OneToMany(type => Faktury, faktury => faktury.dane_sklepu, { eager: true })
+    @OneToMany(type => Faktury, faktury => faktury.dane_sklepu)
     faktury: Faktury[];
 
     @OneToOne(type => Adresy, adresy => adresy.dane_sklepu, { eager: true, cascade: true })

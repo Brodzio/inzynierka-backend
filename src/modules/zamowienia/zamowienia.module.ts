@@ -1,19 +1,21 @@
 import { ProduktyModule } from './../produkty/produkty.module';
 import { KlienciModule } from 'src/modules/klienci/klienci.module';
-import { KlienciRepository } from './../klienci/klient.repository';
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { TypeOrmModule } from '@nestjs/typeorm/dist/typeorm.module';
 import { ZamowieniaController } from "./zamowienia.controller";
 import { ZamowieniaRepository } from "./zamowienia.repository";
-import { ZamowieniaService } from "./zamowienia.service";
+import { ZamowieniaService } from './zamowienia.service';
+import { FakturyModule } from '../faktury/faktury.module';
 
 @Module({
     imports: [
-        KlienciModule,
         TypeOrmModule.forFeature([ZamowieniaRepository]),
-        ProduktyModule
+        ProduktyModule,
+        KlienciModule,
+        FakturyModule
     ],
     controllers: [ZamowieniaController],
-    providers: [ZamowieniaService]
+    providers: [ZamowieniaService],
+    exports: [ZamowieniaService]
 })
 export class ZamowieniaModule {}
