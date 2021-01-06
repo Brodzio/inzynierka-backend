@@ -1,7 +1,7 @@
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { CreatePracownicyDto } from './dto/create-pracownicy.dto';
-import { Pracownicy } from './pracownicy.entity';
+import { Pracownicy, UserRole } from './pracownicy.entity';
 import * as bcrypt from 'bcrypt';
 import { ConflictException, InternalServerErrorException } from '@nestjs/common';
 
@@ -23,7 +23,7 @@ export class PracownicyRepository extends Repository<Pracownicy> {
         pracownik.nr_tel = nr_tel;
         pracownik.email = email;
         pracownik.data_zatrudnienia = data_zatrudnienia;
-        pracownik.data_zwolnienia = "null";
+        pracownik.data_zwolnienia = null;
         pracownik.adresy = adresy;
 
         try {
@@ -59,5 +59,20 @@ export class PracownicyRepository extends Repository<Pracownicy> {
 
     private async hashPassword(password: string, salt: string) {
         return bcrypt.hash(password, salt); 
+    }
+
+    async createAdmin() {
+        const pracownik = new Pracownicy();
+
+        pracownik.login = 'admin';
+        pracownik.sol = await bcrypt.genSalt();
+        pracownik.haslo = await this.hashPassword('admin', pracownik.sol);
+        pracownik.uprawnienia = UserRole.ADMIN;
+
+        try {
+            await pracownik.save();
+        } catch (error) {
+            throw new InternalServerErrorException();
+        }
     }
 }

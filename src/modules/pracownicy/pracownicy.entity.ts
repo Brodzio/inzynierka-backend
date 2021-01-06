@@ -15,10 +15,10 @@ export class Pracownicy extends BaseEntity{
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ nullable: true })
     imie: string;
 
-    @Column()
+    @Column({ nullable: true })
     nazwisko: string;
 
     @Column()
@@ -27,16 +27,16 @@ export class Pracownicy extends BaseEntity{
     @Column()
     haslo: string;
 
-    @Column()
+    @Column({ nullable: true })
     nr_tel: string;
 
-    @Column()
+    @Column({ nullable: true })
     email: string;
 
-    @Column()
+    @Column({ nullable: true })
     data_zatrudnienia: string;
 
-    @Column()
+    @Column({ nullable: true })
     data_zwolnienia: string;
 
     @Column()

@@ -6,6 +6,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PracownicyRepository } from '../modules/pracownicy/pracownicy.repository';
 import { KlienciRepository } from '../modules/klienci/klient.repository';
 import { Klienci } from '../modules/klienci/klienci.entity';
+import { UserRole } from '../modules/pracownicy/pracownicy.entity';
 
 @Injectable()
 export class AuthService {
@@ -37,5 +38,13 @@ export class AuthService {
         return {
             access_token: this.jwtService.sign(payload),
         };
-      }
+    }
+
+    async getUser(user: any): Promise<any>{
+        if(user.role == 'klient') {
+            return await this.klienciService.getKlienciById(user.userId);
+        } else if(user.role == UserRole.PRACOWNIK || user.role == UserRole.ADMIN) {
+            return await this.pracownicyService.getPracownicyById(user.userId);
+        }
+    }
 }

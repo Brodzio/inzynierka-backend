@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, OnApplicationBootstrap } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PracownicyRepository } from './pracownicy.repository';
 import { CreatePracownicyDto } from './dto/create-pracownicy.dto';
@@ -6,11 +6,19 @@ import { Pracownicy } from './pracownicy.entity';
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
 
 @Injectable()
-export class PracownicyService {
+export class PracownicyService implements OnApplicationBootstrap{
     constructor(
         @InjectRepository(PracownicyRepository)
         private pracownicyRepository: PracownicyRepository,
     ) {}
+
+    onApplicationBootstrap(){
+        this.getPracownicy().then( result => { 
+            if(result.length == 0) {
+                this.pracownicyRepository.createAdmin();
+            }
+        });
+    }
 
     async createPracownicy(
         createPracownicyDto: CreatePracownicyDto,
