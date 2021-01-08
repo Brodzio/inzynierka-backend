@@ -48,8 +48,9 @@ export class PracownicyRepository extends Repository<Pracownicy> {
     
     async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<Pracownicy> {
         const { login, haslo } = authCredentialsDto;
-        const user = await this.findOne({ login });
 
+        const user : Pracownicy = await this.findOne({ login });
+        
         if (user && await user.validatePassword(haslo)) {
             return user;
         } else {

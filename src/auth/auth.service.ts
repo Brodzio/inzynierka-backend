@@ -3,9 +3,6 @@ import { KlienciService } from './../modules/klienci/klienci.service';
 import { PracownicyService } from '../modules/pracownicy/pracownicy.service';
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PracownicyRepository } from '../modules/pracownicy/pracownicy.repository';
-import { KlienciRepository } from '../modules/klienci/klient.repository';
-import { Klienci } from '../modules/klienci/klienci.entity';
 import { UserRole } from '../modules/pracownicy/pracownicy.entity';
 
 @Injectable()
