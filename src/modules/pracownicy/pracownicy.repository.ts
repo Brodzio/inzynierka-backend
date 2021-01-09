@@ -57,6 +57,8 @@ export class PracownicyRepository extends Repository<Pracownicy> {
     async createAdmin() {
         const pracownik = new Pracownicy();
 
+        pracownik.imie = 'admin';
+        pracownik.nazwisko = 'admin';
         pracownik.login = 'admin';
         pracownik.sol = await bcrypt.genSalt();
         pracownik.haslo = await this.hashPassword('admin', pracownik.sol);
