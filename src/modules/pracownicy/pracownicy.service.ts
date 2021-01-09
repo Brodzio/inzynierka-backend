@@ -4,6 +4,7 @@ import { PracownicyRepository } from './pracownicy.repository';
 import { CreatePracownicyDto } from './dto/create-pracownicy.dto';
 import { Pracownicy } from './pracownicy.entity';
 import { AuthCredentialsDto } from 'src/auth/dto/auth-credentials.dto';
+import { StatusValue } from 'src/enum/statusy.enum';
 
 @Injectable()
 export class PracownicyService implements OnApplicationBootstrap{
@@ -72,5 +73,13 @@ export class PracownicyService implements OnApplicationBootstrap{
 
     async validateUser(authCredentialsDto: AuthCredentialsDto): Promise<Pracownicy> {
         return await this.pracownicyRepository.validateUserPassword(authCredentialsDto);
+    }
+
+    async changeStatus(status: {status: string}, id: number){
+        return await this.pracownicyRepository.findOne(id).then( async pracownik =>{
+            console.log(status);
+           status.status == 'active' ? pracownik.statusy = StatusValue.ACTIVE : pracownik.statusy = StatusValue.INACTIVE;
+           return await pracownik.save();
+        })
     }
 }

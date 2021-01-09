@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, ValidationPipe, UsePipes, Get, Param, ParseIntPipe, Put, Delete } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, ValidationPipe, UsePipes, Get, Param, ParseIntPipe, Put, Delete, Patch } from '@nestjs/common';
 import { JwtAdminAuthGuard } from 'src/auth/jwt-admin-auth.guards';
 import { CreatePracownicyDto } from './dto/create-pracownicy.dto';
 import { Pracownicy } from './pracownicy.entity';
@@ -44,5 +44,13 @@ export class PracownicyController {
         @Param('id', ParseIntPipe) id: number,
     ): Promise<void> {
         return this.pracownicyService.deletePracownicy(id);
+    }
+
+    @Post('/:id/status')
+    changeStatus(
+        @Body() status: {status: string},
+        @Param('id', ParseIntPipe) id: number)
+    {
+        return this.pracownicyService.changeStatus(status,id);
     }
 }
