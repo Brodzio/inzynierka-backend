@@ -27,12 +27,4 @@ export class AdresyRepository extends Repository<Adresy> {
         }
         return adress;
     }
-
-    async getAdresy(): Promise<Adresy[]> {
-        const query = this.createQueryBuilder('adresy');
-
-        const adres = await query.getMany();
-
-        return adres;
-    }
 }

@@ -16,7 +16,7 @@ export class AdresyService {
     }
 
     async getAdresy(): Promise<Adresy[]> {
-        return this.adresyRepository.getAdresy();
+        return this.adresyRepository.find();
     }
 
     async getAdresyById(id: number): Promise<Adresy> {

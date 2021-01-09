@@ -19,13 +19,4 @@ export class RodzajePlatnosciRepository extends Repository<RodzajePlatnosci> {
         }
         return payment;
     }
-
-    async getRodzajePlatnosci(): Promise<RodzajePlatnosci[]> {
-        const query = this.createQueryBuilder('rodzaje_platnosci');
-
-        const payment = await query.getMany();
-
-        return payment;
-    }
-    
 }

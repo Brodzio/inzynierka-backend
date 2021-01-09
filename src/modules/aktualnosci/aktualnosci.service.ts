@@ -17,7 +17,7 @@ export class AktualnosciService {
     }
 
     async getAktualnosci(): Promise<Aktualnosci[]> {
-        return this.aktualnosciRepository.getAktualnosci();
+        return this.aktualnosciRepository.find();
     }
 
     async getAktualnosciById(id: number): Promise<Aktualnosci> {

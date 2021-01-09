@@ -41,7 +41,7 @@ export class ZamowieniaService {
     }
 
     async getZamowienia(): Promise<Zamowienia[]> {
-        return this.zamowieniaRepository.getZamowienia();
+        return this.zamowieniaRepository.find();
     }
 
     async getZamowieniaById(id: number): Promise<Zamowienia> {

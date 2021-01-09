@@ -24,13 +24,13 @@ export class Klienci extends BaseEntity {
   @Column()
   haslo: string;
 
-  @Column()
+  @Column({ nullable: true })
   nazwa_firmy: string;
 
-  @Column()
+  @Column({ nullable: true })
   regon: string;
 
-  @Column()
+  @Column({ nullable: true })
   nip: string;
 
   @Column()

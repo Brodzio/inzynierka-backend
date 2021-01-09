@@ -31,12 +31,4 @@ export class KomentarzeRepository extends Repository<Komentarze> {
         }
         return komentarz;
     }
-
-    async getKomentarze(): Promise<Komentarze[]> {
-        const query = this.createQueryBuilder('komentarze');
-
-        const comments = await query.getMany();
-
-        return comments;
-    }
 }

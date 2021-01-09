@@ -19,12 +19,4 @@ export class ProducenciRepository extends Repository<Producenci> {
         }
         return producer;
     }
-
-    async getProducenci(): Promise<Producenci[]> {
-        const query = this.createQueryBuilder('producenci');
-
-        const producer = await query.getMany();
-
-        return producer;
-    }
 }

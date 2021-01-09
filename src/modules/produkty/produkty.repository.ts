@@ -7,8 +7,7 @@ import { InternalServerErrorException } from '@nestjs/common';
 export class ProduktyRepository extends Repository<Produkty> {
  
     async createProdukt(
-        createProduktyDto: CreateProduktyDto,
-        //req
+        createProduktyDto: CreateProduktyDto
     ): Promise<Produkty> {
         const { nazwa_produktu, cena_brutto, cena_netto, opis, ilosc, kod_produktu, producenci, kategorie, jednostki_miary, stawka_vat } = createProduktyDto;
 
@@ -29,13 +28,6 @@ export class ProduktyRepository extends Repository<Produkty> {
         } catch (error) {
             throw new InternalServerErrorException();
         }
-        return produkty;
-    }
-
-    async getProdukty(): Promise<Produkty[]> {
-        const query = this.createQueryBuilder('produkty');
-
-        const produkty = await query.getMany();
         return produkty;
     }
 }

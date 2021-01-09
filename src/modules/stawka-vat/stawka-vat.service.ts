@@ -17,7 +17,7 @@ export class StawkaVatService {
   }
 
   async getStawkaVat(): Promise<StawkaVat[]> {
-    return this.stawkaVatRepository.getStawkaVat();
+    return this.stawkaVatRepository.find();
   }
 
   async getStawkaVatById(id: number): Promise<StawkaVat> {

@@ -18,21 +18,9 @@ export class KlienciRepository extends Repository<Klienci> {
         klient.login = login;
         klient.sol = await bcrypt.genSalt();
         klient.haslo = await this.hashPassword(haslo, klient.sol);
-        if(nazwa_firmy) {
-            klient.nazwa_firmy = nazwa_firmy;
-        } else {
-            klient.nazwa_firmy = 'null';
-        }
-        if(regon) {
-            klient.regon = regon;
-        } else {
-            klient.regon = 'null';
-        }
-        if(nip) {
-            klient.nip = nip;
-        } else {
-            klient.nip = 'null';
-        }
+        klient.nazwa_firmy = nazwa_firmy;
+        klient.regon = regon;
+        klient.nip = nip;
         klient.nr_tel = nr_tel;
         klient.email = email;
         klient.adresy = adresy;
@@ -46,14 +34,6 @@ export class KlienciRepository extends Repository<Klienci> {
                 throw new InternalServerErrorException();
             }
         }
-    }
-
-    async getKlienci(): Promise<Klienci[]> {
-        const query = this.createQueryBuilder('klienci');
-
-        const klienci = await query.getMany();
-
-        return klienci;
     }
 
     async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<Klienci> {

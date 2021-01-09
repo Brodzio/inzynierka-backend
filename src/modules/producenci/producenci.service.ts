@@ -16,7 +16,7 @@ export class ProducenciService {
     }
 
     async getProducenci(): Promise<Producenci[]> {
-        return this.producenciRepository.getProducenci();
+        return this.producenciRepository.find();
     }
 
     async getProducenciById(id: number): Promise<Producenci> {

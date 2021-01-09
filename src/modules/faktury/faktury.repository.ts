@@ -36,12 +36,4 @@ export class FakturyRepository extends Repository<Faktury> {
         }
         return faktura;
     }
-
-    async getFaktury(): Promise<Faktury[]> {
-        const query = this.createQueryBuilder('faktury');
-
-        const faktura = await query.getMany();
-
-        return faktura;
-    }
 }

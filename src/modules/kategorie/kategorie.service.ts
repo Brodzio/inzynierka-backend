@@ -16,7 +16,7 @@ export class KategorieService {
     }
 
     async getKategorie(): Promise<Kategorie[]> {
-        return this.kategorieRepository.getKategorie();
+        return this.kategorieRepository.find();
     }
 
     async getKategorieById(id: number): Promise<Kategorie> {

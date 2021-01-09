@@ -13,15 +13,14 @@ export class ProduktyService {
     ) {}
 
     async createProdukt(
-        createProduktyDto: CreateProduktyDto,
-        //req
+        createProduktyDto: CreateProduktyDto
     ): Promise<Produkty> {
         console.log(createProduktyDto);
         return this.produktyRepository.createProdukt(createProduktyDto);
     }
 
     async getProdukty(): Promise<Produkty[]> {
-        return this.produktyRepository.getProdukty();
+        return this.produktyRepository.find();
     }
 
     async getProduktyById(id: number): Promise<Produkty> {

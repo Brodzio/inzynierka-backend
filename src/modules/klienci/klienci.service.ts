@@ -18,7 +18,7 @@ export class KlienciService {
   }
 
   async getKlienci(): Promise<Klienci[]> {
-    return this.klienciRepository.getKlienci();
+    return this.klienciRepository.find();
   }
 
   async getKlienciById(id: number): Promise<Klienci> {

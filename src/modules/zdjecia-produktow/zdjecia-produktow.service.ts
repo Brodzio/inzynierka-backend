@@ -16,7 +16,7 @@ export class ZdjeciaProduktowService {
     }
 
     async getZdjeciaProduktow(): Promise<ZdjeciaProduktow[]> {
-        return this.zdjeciaProduktowRepository.getZdjeciaProduktow();
+        return this.zdjeciaProduktowRepository.find();
     }
 
     async getZdjeciaProduktowById(id: number): Promise<ZdjeciaProduktow> {

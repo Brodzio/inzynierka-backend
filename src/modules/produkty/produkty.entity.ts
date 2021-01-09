@@ -1,4 +1,3 @@
-import { type } from "os";
 import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Kategorie } from '../kategorie/kategorie.entity';
 import { Producenci } from '../producenci/producenci.entity';

@@ -29,12 +29,4 @@ export class ZamowieniaRepository extends Repository<Zamowienia> {
         }
         return zamowienie;
     }
-
-    async getZamowienia(): Promise<Zamowienia[]> {
-        const query = this.createQueryBuilder('zamowienia');
-
-        const zamowienie = await query.getMany();
-
-        return zamowienie;
-    }
 }

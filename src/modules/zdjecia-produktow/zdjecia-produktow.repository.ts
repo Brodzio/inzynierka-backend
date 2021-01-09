@@ -21,12 +21,4 @@ export class ZdjeciaProduktowRepository extends Repository<ZdjeciaProduktow> {
         }
         return photo;
     }
-
-    async getZdjeciaProduktow(): Promise<ZdjeciaProduktow[]> {
-        const query = this.createQueryBuilder('zdjecia_produktow');
-
-        const photo = await query.getMany();
-
-        return photo;
-    }
 }

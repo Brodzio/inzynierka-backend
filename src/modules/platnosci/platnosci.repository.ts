@@ -24,12 +24,4 @@ export class PlatnosciRepository extends Repository<Platnosci> {
         }
         return platnosc;
     }
-
-    async getPlatnosci(): Promise<Platnosci[]> {
-        const query = this.createQueryBuilder('platnosci');
-
-        const platnosc = await query.getMany();
-
-        return platnosc;
-    }
 }

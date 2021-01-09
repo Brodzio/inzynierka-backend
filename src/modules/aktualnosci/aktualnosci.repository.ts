@@ -22,12 +22,4 @@ export class AktualnosciRepository extends Repository<Aktualnosci> {
         }
         return aktualnosc;
     }
-
-    async getAktualnosci(): Promise<Aktualnosci[]> {
-        const query = this.createQueryBuilder('aktualnosci');
-
-        const aktualnosc = await query.getMany();
-
-        return aktualnosc;
-    }
 }

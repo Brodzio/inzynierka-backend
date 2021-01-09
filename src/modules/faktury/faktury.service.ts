@@ -43,7 +43,7 @@ export class FakturyService {
     }
 
     async getFaktury(): Promise<Faktury[]> {
-        return this.fakturyRepository.getFaktury();
+        return this.fakturyRepository.find();
     }
 
     async getFakturyById(id: number): Promise<Faktury> {

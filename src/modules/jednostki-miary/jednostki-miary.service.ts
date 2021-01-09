@@ -16,7 +16,7 @@ export class JednostkiMiaryService {
     }
 
     async getJednostkiMiary(): Promise<JednostkiMiary[]> {
-        return this.jednostkiMiaryRepository.getJednostkiMiary();
+        return this.jednostkiMiaryRepository.find();
     }
 
     async getJednostkiMiaryById(id: number): Promise<JednostkiMiary> {

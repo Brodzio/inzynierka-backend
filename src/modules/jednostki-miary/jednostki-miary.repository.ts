@@ -19,12 +19,4 @@ export class JednostkiMiaryRepository extends Repository<JednostkiMiary> {
         }
         return measure;
     }
-
-    async getJednostkiMiary(): Promise<JednostkiMiary[]> {
-        const query = this.createQueryBuilder('adresy');
-
-        const measure = await query.getMany();
-
-        return measure;
-    }
 }

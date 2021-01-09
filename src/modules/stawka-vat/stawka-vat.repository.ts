@@ -17,11 +17,4 @@ export class StawkaVatRepository extends Repository<StawkaVat> {
 
         return vat;
     }
-
-    async getStawkaVat(): Promise<StawkaVat[]> {
-        const query = this.createQueryBuilder('stawka_vat');
-
-        const vat = await query.getMany();
-        return vat;
-    }
 }

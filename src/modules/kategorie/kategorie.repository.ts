@@ -19,12 +19,4 @@ export class KategorieRepository extends Repository<Kategorie> {
         }
         return kategoria;
     }
-
-    async getKategorie(): Promise<Kategorie[]> {
-        const query = this.createQueryBuilder('kategorie');
-
-        const kategoria = await query.getMany();
-
-        return kategoria;
-    }
 }

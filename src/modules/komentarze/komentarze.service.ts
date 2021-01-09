@@ -17,7 +17,7 @@ export class KomentarzeServie {
     }
 
     async getKomentarze(): Promise<Komentarze[]> {
-        return this.komentarzeRepository.getKomentarze();
+        return this.komentarzeRepository.find();
     }
 
     async getCommentsById(id: number): Promise<Komentarze> {

@@ -16,7 +16,7 @@ export class RodzajePlatnosciService {
     }
 
     async getRodzajePlatnosci(): Promise<RodzajePlatnosci[]> {
-        return this.rodzajePlatnosciRepository.getRodzajePlatnosci();
+        return this.rodzajePlatnosciRepository.find();
     }
 
     async getRodzajePlatnosciById(id: number): Promise<RodzajePlatnosci> {

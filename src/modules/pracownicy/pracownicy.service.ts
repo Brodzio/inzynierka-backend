@@ -27,7 +27,7 @@ export class PracownicyService implements OnApplicationBootstrap{
     }
 
     async getPracownicy(): Promise<Pracownicy[]> {
-        return this.pracownicyRepository.getPracownicy();
+        return this.pracownicyRepository.find();
     }
 
     async getPracownicyById(id: number): Promise<Pracownicy> {

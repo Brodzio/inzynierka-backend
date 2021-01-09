@@ -31,7 +31,7 @@ export class PlatnosciService {
     }
 
     async getPlatnosci(): Promise<Platnosci[]> {
-        return this.platnosciRepository.getPlatnosci();
+        return this.platnosciRepository.find();
     }
 
     async getPlatnosciById(id: number): Promise<Platnosci> {

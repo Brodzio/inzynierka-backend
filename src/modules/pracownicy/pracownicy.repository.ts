@@ -37,14 +37,6 @@ export class PracownicyRepository extends Repository<Pracownicy> {
         }
         return pracownik;
     }
-
-    async getPracownicy(): Promise<Pracownicy[]> {
-        const query = this.createQueryBuilder('pracownicy');
-
-        const worker = await query.getMany();
-
-        return worker;
-    }
     
     async validateUserPassword(authCredentialsDto: AuthCredentialsDto): Promise<Pracownicy> {
         const { login, haslo } = authCredentialsDto;
