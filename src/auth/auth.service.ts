@@ -29,7 +29,9 @@ export class AuthService {
         if(user.uprawnienia) {
             payload = { username: user.login, sub: user.id , role: user.uprawnienia};
         } else {
-            payload = { username: user.login, sub: user.id , role: 'klient'};
+            let role;
+            user.nazwa_firmy ? role = 'klient_indywidualny' : role = 'klient_firmowy';
+            payload = { username: user.login, sub: user.id , role: role};
         }
         
         return {

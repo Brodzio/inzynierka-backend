@@ -13,6 +13,7 @@ export class ZamowieniaRepository extends Repository<Zamowienia> {
         createZamowieniaDTO: CreateZamowieniDTO
     ): Promise<Zamowienia> {
 
+        console.log(user);
         const zamowienie = new Zamowienia();
         zamowienie.data_zlozenia = new Date();
         zamowienie.data_przyjecia = null;

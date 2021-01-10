@@ -37,6 +37,7 @@ export class ZamowieniaService {
             pozycjaZamowienia.cena_brutto = (pozycjaZamowienia.ilosc * Number.parseFloat(produkt.cena_brutto)).toFixed(2);
             pozycjeZamowienia.push(pozycjaZamowienia);
         }
+        console.log(createZamowieniaDTO.produkty);
         return this.zamowieniaRepository.createZamowienia( klient, pozycjeZamowienia, createZamowieniaDTO);
     }
 

@@ -23,7 +23,7 @@ export class KlienciService {
 
   async getKlienciById(id: number): Promise<Klienci> {
     const found = await this.klienciRepository.findOne({ id });
-
+    console.log(found);
     if(!found) {
       throw new NotFoundException(`Clients with ID "${id}" not found`);
     }

@@ -17,6 +17,7 @@ export class ZamowieniaController {
         @Body() createZamowieniaDTO: CreateZamowieniDTO,
         @Req() req
     ): Promise<Zamowienia> {
+        console.log(req.user);
         return this.zamowieniaService.createZamowienia(createZamowieniaDTO, req.user);
     }
 
