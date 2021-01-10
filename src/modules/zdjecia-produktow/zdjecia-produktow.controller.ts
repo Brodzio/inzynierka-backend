@@ -1,20 +1,35 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { ZdjeciaProduktowService } from "./zdjecia-produktow.service";
 import { ZdjeciaProduktow } from './zdjecia-produktow.entity';
 import { CreateZdjeciaProduktowDTO } from "./dto/create-zdjecia-produktow.dto";
 import { JwtPracownikAuthGuard } from '../../auth/jwt-pracownik-auth.guards';
+import { FileInterceptor } from "@nestjs/platform-express";
+import { storage } from "src/config/storage.config";
+import { ReadStream } from "typeorm/platform/PlatformTools";
 
 @Controller('product-photos')
 export class ZdjeciaProduktowController {
     constructor(private zdjeciaProduktowService: ZdjeciaProduktowService) {}
 
-    @Post()
+    @Post('/:id')
     @UseGuards(JwtPracownikAuthGuard)
-    @UsePipes(ValidationPipe)
+    @UseInterceptors(
+        FileInterceptor(
+          "file", // name of the field being passed
+          { storage }
+        )
+      )
     createZdjeciaProduktow(
-        @Body() createZdjeciaProduktowDTO: CreateZdjeciaProduktowDTO,
+        @UploadedFile() file,
+        @Param('id', ParseIntPipe) id : number
     ): Promise<ZdjeciaProduktow> {
-        return this.zdjeciaProduktowService.createZdjeciaProduktow(createZdjeciaProduktowDTO);
+        const data: CreateZdjeciaProduktowDTO ={
+            data_dodania: new Date().toDateString(),
+            nazwa: file.filename,
+            produkty: id,
+        }
+        console.log(file);
+        return this.zdjeciaProduktowService.createZdjeciaProduktow(data);
     }
 
     @Get()
@@ -24,7 +39,7 @@ export class ZdjeciaProduktowController {
 
     @Get('/:id')
     getZdjeciaProduktowById(
-        @Param('id', ParseIntPipe) id : number): Promise<ZdjeciaProduktow> {
+        @Param('id', ParseIntPipe) id : number): Promise<any> {
         return this.zdjeciaProduktowService.getZdjeciaProduktowById(id);
     }
 

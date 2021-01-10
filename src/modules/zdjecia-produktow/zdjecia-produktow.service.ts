@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { CreateZdjeciaProduktowDTO } from "./dto/create-zdjecia-produktow.dto";
 import { ZdjeciaProduktowRepository } from "./zdjecia-produktow.repository";
 import { ZdjeciaProduktow } from './zdjecia-produktow.entity';
+import { createReadStream, readFile, ReadStream } from "fs";
 
 @Injectable()
 export class ZdjeciaProduktowService {
@@ -19,14 +20,18 @@ export class ZdjeciaProduktowService {
         return this.zdjeciaProduktowRepository.find();
     }
 
-    async getZdjeciaProduktowById(id: number): Promise<ZdjeciaProduktow> {
+    async getZdjeciaProduktowById(id: number): Promise<any> {
         const found = await this.zdjeciaProduktowRepository.findOne({ id });
-
         if(!found) {
             throw new NotFoundException(`Photo with ID "${id}" not found`);
         }
-
-        return found;
+        let result = await new Promise<String>((resolve, reject)=>{
+            readFile('./uploads/'+found.nazwa,{},(err,data)=>{
+            resolve(data.toString('base64'));
+           });
+        });
+        return {data:result};
+        //return found;
     }
 
     async updateZdjeciaProduktow(
@@ -34,7 +39,7 @@ export class ZdjeciaProduktowService {
         createZdjeciaProduktowDTO: CreateZdjeciaProduktowDTO,
     ): Promise<ZdjeciaProduktow> {
         const { nazwa, data_dodania } = createZdjeciaProduktowDTO;
-        const photo = await this.getZdjeciaProduktowById(id);
+        const photo = await this.zdjeciaProduktowRepository.findOne(id);
         photo.nazwa = nazwa;
         photo.data_dodania = data_dodania;
         await photo.save();

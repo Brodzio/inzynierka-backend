@@ -5,6 +5,9 @@ import { Produkty } from "./produkty.entity";
 import { UpdateProduktyDto } from "./dto/update-produkty.dto";
 import { JwtPracownikAuthGuard } from "src/auth/jwt-pracownik-auth.guards";
 import { JwtAuthGuard } from '../../auth/jwt-auth.guards';
+import { UseInterceptors } from "@nestjs/common";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { storage } from "src/config/storage.config";
 
 @Controller('products')
 export class ProduktyController {
@@ -21,13 +24,11 @@ export class ProduktyController {
     }
 
     @Get()
-    @UseGuards(JwtAuthGuard)
     getProdukty(): Promise<Produkty[]> {
         return this.produktyService.getProdukty();
     }
 
     @Get('/:id')
-    @UseGuards(JwtAuthGuard)
     getProduktyById(@Param('id', ParseIntPipe) id: number): Promise<Produkty> {
         return this.produktyService.getProduktyById(id);
     }

@@ -3,10 +3,10 @@ import { Produkty } from 'src/modules/produkty/produkty.entity';
 
 export class CreateZdjeciaProduktowDTO {
 
-    @IsNotEmpty()
+    //@IsNotEmpty()
     nazwa: string
 
-    @IsNotEmpty()
+    //@IsNotEmpty()
     data_dodania: string;
 
     produkty: Produkty | number;
