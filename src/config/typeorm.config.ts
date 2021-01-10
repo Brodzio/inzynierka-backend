@@ -4,7 +4,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
     type: 'mysql',
     host: 'localhost',
     port: 3306,
-    username: 'admin',
+    username: 'root',
     password: '0000',
     database: 'mydb',
     entities: [],
