@@ -12,10 +12,10 @@ export class Klienci extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   imie: string;
 
-  @Column()
+  @Column({ nullable: true })
   nazwisko: string;
 
   @Column()
@@ -33,10 +33,10 @@ export class Klienci extends BaseEntity {
   @Column({ nullable: true })
   nip: string;
 
-  @Column()
+  @Column({ nullable: true })
   nr_tel: string;
 
-  @Column()
+  @Column({ nullable: true })
   email: string;
 
   @Column()
