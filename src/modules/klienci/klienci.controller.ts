@@ -34,7 +34,7 @@ export class KlienciController {
   }
 
   @Put('/:id')
-  @UseGuards(JwtPracownikAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
   updateKlienci(
       @Param('id', ParseIntPipe) id: number,

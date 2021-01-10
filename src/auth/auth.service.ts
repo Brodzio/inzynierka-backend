@@ -30,7 +30,8 @@ export class AuthService {
             payload = { username: user.login, sub: user.id , role: user.uprawnienia};
         } else {
             let role;
-            user.nazwa_firmy ? role = 'klient_indywidualny' : role = 'klient_firmowy';
+            console.log(user);
+            user.nazwa_firmy ? role = 'klient_firmowy' : role = 'klient_indywidualny';
             payload = { username: user.login, sub: user.id , role: role};
         }
         
@@ -40,7 +41,7 @@ export class AuthService {
     }
 
     async getUser(user: any): Promise<any>{
-        if(user.role == 'klient') {
+        if(user.role == 'klient_indywidualny' || user.role == 'klient_firmowy' ) {
             return await this.klienciService.getKlienciById(user.userId);
         } else if(user.role == UserRole.PRACOWNIK || user.role == UserRole.ADMIN) {
             return await this.pracownicyService.getPracownicyById(user.userId);
