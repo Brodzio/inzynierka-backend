@@ -13,6 +13,6 @@ export class ZdjeciaProduktow extends BaseEntity {
     @Column()
     data_dodania: string;
 
-    @ManyToOne(type => Produkty, produkty => produkty.zdjecia_produktow, { eager: true, cascade: true })
+    @ManyToOne(type => Produkty, produkty => produkty.zdjecia_produktow, { cascade: true })
     produkty: Produkty | number;
 }
