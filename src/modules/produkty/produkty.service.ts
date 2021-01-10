@@ -37,13 +37,16 @@ export class ProduktyService {
         id: number,
         updateProdukty: UpdateProduktyDto,
     ): Promise<Produkty> {
-        const { cena_brutto, cena_netto, opis, ilosc } = updateProdukty;
+        const { cena_brutto, cena_netto, opis, ilosc, producenci, stawka_vat, kategorie, jednostki_miary} = updateProdukty;
         const produkty = await this.getProduktyById(id);
         produkty.cena_brutto = cena_brutto;
         produkty.cena_netto = cena_netto;
         produkty.opis = opis;
         produkty.ilosc = ilosc;
-
+        produkty.stawka_vat = stawka_vat;
+        produkty.jednostki_miary = jednostki_miary;
+        produkty.kategorie = kategorie;
+        produkty.producenci = producenci;
         await produkty.save();
         return produkty;
     }
