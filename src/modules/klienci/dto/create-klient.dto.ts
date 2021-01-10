@@ -2,10 +2,9 @@ import { IsNotEmpty, IsString, MinLength, MaxLength, Matches } from 'class-valid
 import { Adresy } from '../../adresy/adresy.entity';
 
 export class CreateKlientDto {
-    @IsNotEmpty()
+
     imie: string;
 
-    @IsNotEmpty()
     nazwisko: string;
 
     @IsString()
@@ -28,12 +27,9 @@ export class CreateKlientDto {
 
     nip: string;
 
-    @IsNotEmpty()
     nr_tel: string;
 
-    @IsNotEmpty()
     email: string;
 
-    @IsNotEmpty()
     adresy: Adresy;
 }
