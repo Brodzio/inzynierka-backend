@@ -22,9 +22,15 @@ export class ZamowieniaController {
     }
 
     @Get()
-    @UseGuards(JwtPracownikAuthGuard)
+    //@UseGuards(JwtPracownikAuthGuard)
     getZamowienia(): Promise<Zamowienia[]> {
         return this.zamowieniaService.getZamowienia();
+    }
+
+    @Get('/user/:id')
+    //@UseGuards(JwtPracownikAuthGuard)
+    getZamowieniaFromUser(@Param('id', ParseIntPipe) id : number): Promise<any> {
+        return this.zamowieniaService.getZamowieniaFromUser(id);
     }
 
     @Get('/:id')

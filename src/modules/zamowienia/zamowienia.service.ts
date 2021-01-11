@@ -12,6 +12,7 @@ import { FakturyService } from '../faktury/faktury.service';
 import { CreateFakturyDto } from '../faktury/dto/create-faktury.dto';
 import { Faktury } from '../faktury/faktury.entity';
 import { PlatnosciService } from '../platnosci/platnosci.service';
+import { Like } from 'typeorm';
 
 @Injectable()
 export class ZamowieniaService {
@@ -37,7 +38,6 @@ export class ZamowieniaService {
             pozycjaZamowienia.cena_brutto = (pozycjaZamowienia.ilosc * Number.parseFloat(produkt.cena_brutto)).toFixed(2);
             pozycjeZamowienia.push(pozycjaZamowienia);
         }
-        console.log(createZamowieniaDTO.produkty);
         return this.zamowieniaRepository.createZamowienia( klient, pozycjeZamowienia, createZamowieniaDTO);
     }
 
@@ -105,5 +105,45 @@ export class ZamowieniaService {
         if(result.affected === 0) {
             throw new NotFoundException(`Order with ID "${id}" not found`);
         }
+    }
+
+    async getZamowieniaFromUser(id:number):Promise<any>{
+        const produkty = await this.zamowieniaRepository.createQueryBuilder('zamowienia')
+        .innerJoinAndSelect('pozycje_zamowienia','pozycje_zamowienia')
+        .where('pozycje_zamowienia.zamowieniaId = zamowienia.id')
+        .innerJoinAndSelect('pozycje_zamowienia.produkt','produkty')
+        .andWhere('zamowienia.klienciId = :id',{id})
+        .select(["produkty"])
+        .distinct(true)
+        .execute();
+
+        const zamowienia = await this.zamowieniaRepository.createQueryBuilder('zamowienia')
+        .innerJoinAndSelect('pozycje_zamowienia','pozycje_zamowienia')
+        .where('pozycje_zamowienia.zamowieniaId = zamowienia.id')
+        .innerJoinAndSelect('pozycje_zamowienia.produkt','produkty')
+        .andWhere('zamowienia.klienciId = :id',{id})
+        .select(["zamowienia"])
+        .distinct(true)
+        .execute();
+
+        const pozycjeZamowien = await this.zamowieniaRepository.createQueryBuilder('zamowienia')
+        .innerJoinAndSelect('pozycje_zamowienia','pozycje_zamowienia')
+        .where('pozycje_zamowienia.zamowieniaId = zamowienia.id')
+        .innerJoinAndSelect('pozycje_zamowienia.produkt','produkty')
+        .andWhere('zamowienia.klienciId = :id',{id})
+        .select(["pozycje_zamowienia"])
+        .distinct(true)
+        .execute();
+
+        const found = {
+            zamowienia: zamowienia,
+            pozycjeZamowien: pozycjeZamowien,
+            produkty: produkty
+        }
+        if(!found) {
+            throw new NotFoundException(`Order with ID "${id}" not found`);
+        }
+
+        return found;
     }
 }
