@@ -18,7 +18,7 @@ export class PozycjeZamowienia extends BaseEntity {
     @Column()
     cena_netto: string;
 
-    @ManyToOne(type => Zamowienia, zamowienia => zamowienia.pozycje_zamowienia, { eager: true })
+    @ManyToOne(type => Zamowienia, zamowienia => zamowienia.pozycje_zamowienia)
     zamowienia: Zamowienia;
 
     @ManyToOne(type => Produkty, produkty => produkty.pozycje_zamowienia, { eager: true })

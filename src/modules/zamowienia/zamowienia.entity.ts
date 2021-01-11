@@ -38,6 +38,6 @@ export class Zamowienia extends BaseEntity {
     })
     statusy: StatusValue;
 
-    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { cascade: true})
+    @OneToMany(type => PozycjeZamowienia, pozycje_zamowienia => pozycje_zamowienia.zamowienia, { eager: true , cascade: true})
     pozycje_zamowienia: PozycjeZamowienia[];
 }
