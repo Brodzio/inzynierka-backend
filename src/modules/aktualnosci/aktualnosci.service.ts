@@ -4,6 +4,7 @@ import { AktualnosciRepository } from "./aktualnosci.repository";
 import { CreateAktualnosciDTO } from "./dto/create-aktualnosci.dto";
 import { Aktualnosci } from './aktualnosci.entity';
 import { UpdateAktualnosciDTO } from "./dto/update-aktualnosci.dto";
+import { readFile } from "fs";
 
 @Injectable()
 export class AktualnosciService {
@@ -16,8 +17,24 @@ export class AktualnosciService {
         return this.aktualnosciRepository.createAktualnosci(createAktualnosciDTO);
     }
 
-    async getAktualnosci(): Promise<Aktualnosci[]> {
-        return this.aktualnosciRepository.find();
+    async getAktualnosci(): Promise<{aktualnosc:Aktualnosci, zdjecie:any}[]> {
+        let returnData: {aktualnosc:Aktualnosci, zdjecie:any}[] = new Array<{aktualnosc:Aktualnosci, zdjecie:any}>();
+        let promise: Promise<{aktualnosc:Aktualnosci, zdjecie:any}[]> = new Promise<{aktualnosc:Aktualnosci, zdjecie:any}[]>((resolve, reject)=>{
+            resolve(returnData);
+           });
+        let found: Aktualnosci[] = new Array(); 
+        await this.aktualnosciRepository.find().then( found1=>{
+            found = found1;
+        });
+        for(let i=0;i<found.length;i++){
+            let result = await new Promise<String>((resolve, reject)=>{
+                readFile('./uploads/'+found[i].zdjecie,{},(err,data)=>{
+                resolve(data.toString('base64'));
+               });
+            });
+            returnData.push({aktualnosc: found[i],zdjecie: result});
+        }
+        return promise;
     }
 
     async getAktualnosciById(id: number): Promise<Aktualnosci> {

@@ -31,7 +31,7 @@ export class AktualnosciController {
     }
 
     @Get()
-    getAktualnosci(): Promise<Aktualnosci[]> {
+    getAktualnosci(): Promise<{aktualnosc:Aktualnosci, zdjecie:any}[]> {
         return this.aktualnosciService.getAktualnosci();
     }
 
