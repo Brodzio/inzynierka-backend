@@ -7,10 +7,10 @@ import { CreateAktualnosciDTO } from "./dto/create-aktualnosci.dto";
 export class AktualnosciRepository extends Repository<Aktualnosci> {
 
     async createAktualnosci(createAktualnosciDTO: CreateAktualnosciDTO): Promise<Aktualnosci> {
-        const{ data_opublikowania, tytul, opis, zdjecie } = createAktualnosciDTO;
+        const{ tytul, opis, zdjecie } = createAktualnosciDTO;
 
         const aktualnosc = new Aktualnosci();
-        aktualnosc.data_opublikowania = data_opublikowania;
+        aktualnosc.data_opublikowania = new Date();
         aktualnosc.tytul = tytul;
         aktualnosc.opis = opis;
         aktualnosc.zdjecie = zdjecie;

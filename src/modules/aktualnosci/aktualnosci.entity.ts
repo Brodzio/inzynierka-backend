@@ -7,7 +7,7 @@ export class Aktualnosci extends BaseEntity {
     id: number;
 
     @Column()
-    data_opublikowania: string;
+    data_opublikowania: Date;
 
     @Column()
     tytul: string;
