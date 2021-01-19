@@ -16,6 +16,14 @@ export class KomentarzeServie {
         return this.komentarzeRepository.createKomentarze(createKomentarzeDTO);
     }
 
+    async getCommentsByProductId(id: number): Promise<Komentarze[]> {
+        return this.komentarzeRepository.find({ where: { produkty: id }});
+    }
+
+    async getCommentsByNewsId(id: number): Promise<Komentarze[]> {
+        return this.komentarzeRepository.find({ where: { aktualnosci: id }});
+    }
+
     async getKomentarze(): Promise<Komentarze[]> {
         return this.komentarzeRepository.find();
     }

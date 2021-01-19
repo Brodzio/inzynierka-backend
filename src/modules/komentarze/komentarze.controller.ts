@@ -25,6 +25,20 @@ export class KomentarzeController {
         return this.komentarzeService.getKomentarze();
     }
 
+    @Get('/product/:id')
+    getCommentsByProductId(
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<Komentarze[]> {
+        return this.komentarzeService.getCommentsByProductId(id);
+    }
+
+    @Get('/news/:id')
+    getCommentsByNewsId(
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<Komentarze[]> {
+        return this.komentarzeService.getCommentsByNewsId(id);
+    }
+
     @Get('/:id')
     getCommentsById(
         @Param('id', ParseIntPipe) id : number): Promise<Komentarze> {
