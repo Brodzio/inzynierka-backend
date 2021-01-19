@@ -8,10 +8,10 @@ export class Komentarze extends BaseEntity {
     id: number;
 
     @Column()
-    data_dodania: string;
+    data_dodania: Date;
 
-    @Column()
-    data_modyfikacji: string;
+    @Column({ nullable: true })
+    data_modyfikacji: Date;
 
     @Column({
         type: "varchar",

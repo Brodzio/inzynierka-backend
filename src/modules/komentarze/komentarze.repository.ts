@@ -7,22 +7,13 @@ import { InternalServerErrorException } from "@nestjs/common";
 export class KomentarzeRepository extends Repository<Komentarze> {
 
     async createKomentarze(createKomentarzeDTO: CreateKomentarzeDTO): Promise<Komentarze> {
-        const{ data_dodania, data_modyfikacji, opis, produkty, aktualnosci } = createKomentarzeDTO;
+        const{ opis, produkty, aktualnosci } = createKomentarzeDTO;
 
         const komentarz = new Komentarze();
-        komentarz.data_dodania = data_dodania;
-        if(data_modyfikacji) {
-            komentarz.data_modyfikacji = data_modyfikacji;
-        } else {
-            komentarz.data_modyfikacji = data_dodania;
-        }
+        komentarz.data_dodania = new Date();
         komentarz.opis = opis;
-        if(produkty) {
-            komentarz.produkty;
-        }
-        if(aktualnosci) {
-            komentarz.aktualnosci;
-        }
+        komentarz.produkty = produkty;
+        komentarz.aktualnosci = aktualnosci;
 
         try {
             await komentarz.save();

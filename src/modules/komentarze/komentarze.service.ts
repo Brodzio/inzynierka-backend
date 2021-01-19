@@ -42,9 +42,9 @@ export class KomentarzeServie {
         id: number,
         updateKomentarz: UpdateKomentarzeDTO,
     ): Promise<Komentarze> {
-        const { data_modyfikacji, opis } = updateKomentarz;
+        const { opis } = updateKomentarz;
         const komentarz = await this.getCommentsById(id);
-        komentarz.data_modyfikacji = data_modyfikacji;
+        komentarz.data_modyfikacji = new Date();
         komentarz.opis = opis;
         await komentarz.save();
         return komentarz;

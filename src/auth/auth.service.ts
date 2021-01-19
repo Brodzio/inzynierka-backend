@@ -30,7 +30,6 @@ export class AuthService {
             payload = { username: user.login, sub: user.id , role: user.uprawnienia};
         } else {
             let role;
-            console.log(user);
             user.nazwa_firmy ? role = 'klient_firmowy' : role = 'klient_indywidualny';
             payload = { username: user.login, sub: user.id , role: role};
         }

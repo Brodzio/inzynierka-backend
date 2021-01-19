@@ -4,11 +4,6 @@ import { Aktualnosci } from '../../aktualnosci/aktualnosci.entity';
 
 export class CreateKomentarzeDTO {
      @IsNotEmpty()
-     data_dodania: string;
-
-     data_modyfikacji: string;
-
-     @IsNotEmpty()
      opis: string;
 
      produkty: Produkty | number;
