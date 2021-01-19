@@ -12,8 +12,11 @@ export class KomentarzeServie {
         private komentarzeRepository: KomentarzeRepository,
     ) {}
 
-    async createKomentarze(createKomentarzeDTO: CreateKomentarzeDTO): Promise<Komentarze> {
-        return this.komentarzeRepository.createKomentarze(createKomentarzeDTO);
+    async createKomentarze(
+        createKomentarzeDTO: CreateKomentarzeDTO,
+        user: any
+    ): Promise<Komentarze> {
+        return this.komentarzeRepository.createKomentarze(createKomentarzeDTO, user);
     }
 
     async getCommentsByProductId(id: number): Promise<Komentarze[]> {

@@ -4,6 +4,7 @@ import { Faktury } from '../faktury/faktury.entity';
 import { Zamowienia } from '../zamowienia/zamowienia.entity';
 import { Adresy } from '../adresy/adresy.entity';
 import { StatusValue } from '../../enum/statusy.enum';
+import { Komentarze } from '../komentarze/komentarze.entity';
 
 @Entity()
 @Unique(['login'])
@@ -63,4 +64,7 @@ export class Klienci extends BaseEntity {
     default: StatusValue.ACTIVE
   })
   statusy: StatusValue;
+
+  @OneToMany(type => Komentarze, komentarze => komentarze.klienci)
+  komentarze: Komentarze;
 }

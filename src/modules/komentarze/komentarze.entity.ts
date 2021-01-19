@@ -1,6 +1,7 @@
 import { BaseEntity, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { Produkty } from '../produkty/produkty.entity';
 import { Aktualnosci } from '../aktualnosci/aktualnosci.entity';
+import { Klienci } from '../klienci/klienci.entity';
 
 @Entity()
 export class Komentarze extends BaseEntity {
@@ -18,6 +19,9 @@ export class Komentarze extends BaseEntity {
         length: 300,
     })
     opis: string;
+
+    @ManyToOne(type => Klienci, klienci => klienci.komentarze, { eager: true })
+    klienci: Klienci | number;
 
     @ManyToOne(type => Produkty, produkty => produkty.komentarze, { eager: false, cascade: true })
     produkty: Produkty | number;

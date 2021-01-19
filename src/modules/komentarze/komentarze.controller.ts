@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateKomentarzeDTO } from './dto/create-komentarze.dto';
 import { Komentarze } from './komentarze.entity';
 import { KomentarzeServie } from './komentarze.service';
@@ -16,8 +16,9 @@ export class KomentarzeController {
     @UsePipes(ValidationPipe)
     createKomentarze(
         @Body() createKomentarzeDTO: CreateKomentarzeDTO,
+        @Req() req: any
     ): Promise<Komentarze> {
-        return this.komentarzeService.createKomentarze(createKomentarzeDTO);
+        return this.komentarzeService.createKomentarze(createKomentarzeDTO, req.user);
     }
 
     @Get()
