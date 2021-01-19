@@ -31,6 +31,7 @@ export class ZdjeciaProduktowService {
            });
         });
         return {data:result};
+        //return found;
     }
 
     async updateZdjeciaProduktow(

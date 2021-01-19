@@ -6,10 +6,7 @@ import { CreateAktualnosciDTO } from "./dto/create-aktualnosci.dto";
 @EntityRepository(Aktualnosci)
 export class AktualnosciRepository extends Repository<Aktualnosci> {
 
-    async createAktualnosci(
-        createAktualnosciDTO: CreateAktualnosciDTO,
-        user: any
-    ): Promise<Aktualnosci> {
+    async createAktualnosci(createAktualnosciDTO: CreateAktualnosciDTO): Promise<Aktualnosci> {
         const{ tytul, opis, zdjecie } = createAktualnosciDTO;
 
         const aktualnosc = new Aktualnosci();
@@ -17,7 +14,6 @@ export class AktualnosciRepository extends Repository<Aktualnosci> {
         aktualnosc.tytul = tytul;
         aktualnosc.opis = opis;
         aktualnosc.zdjecie = zdjecie;
-        aktualnosc.pracownicy = user.userId;
 
         try {
             await aktualnosc.save();

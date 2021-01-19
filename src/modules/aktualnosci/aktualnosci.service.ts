@@ -12,11 +12,8 @@ export class AktualnosciService {
         private aktualnosciRepository: AktualnosciRepository,
     ) {}
 
-    async createAktualnosci(
-        createAktualnosciDTO: CreateAktualnosciDTO,
-        user: any
-    ): Promise<Aktualnosci> {
-        return this.aktualnosciRepository.createAktualnosci(createAktualnosciDTO, user);
+    async createAktualnosci(createAktualnosciDTO: CreateAktualnosciDTO): Promise<Aktualnosci> {
+        return this.aktualnosciRepository.createAktualnosci(createAktualnosciDTO);
     }
 
     async getAktualnosci(): Promise<Aktualnosci[]> {

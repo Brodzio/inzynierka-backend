@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, Req, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AktualnosciService } from "./aktualnosci.service";
 import { Aktualnosci } from './aktualnosci.entity';
 import { CreateAktualnosciDTO } from "./dto/create-aktualnosci.dto";
@@ -23,12 +23,11 @@ export class AktualnosciController {
     createAktualnosci(
         @UploadedFile() file,
         @Body() createAktualnosciDTO: any,
-        @Req() req: any
     ): Promise<Aktualnosci> {
         let data: CreateAktualnosciDTO = JSON.parse(createAktualnosciDTO.data);
         data.zdjecie = file.filename;
         console.log(data);
-        return this.aktualnosciService.createAktualnosci(data, req.user);
+        return this.aktualnosciService.createAktualnosci(data);
     }
 
     @Get()
