@@ -66,5 +66,5 @@ export class Klienci extends BaseEntity {
   statusy: StatusValue;
 
   @OneToMany(type => Komentarze, komentarze => komentarze.klienci)
-  komentarze: Komentarze;
+  komentarze: Komentarze[];
 }

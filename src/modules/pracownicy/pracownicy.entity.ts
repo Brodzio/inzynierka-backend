@@ -1,7 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToOne, JoinColumn, ManyToOne, BaseEntity } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Unique, OneToOne, JoinColumn, ManyToOne, BaseEntity, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Adresy } from '../adresy/adresy.entity';
 import { StatusValue } from '../../enum/statusy.enum';
+import { type } from 'os';
+import { Aktualnosci } from '../aktualnosci/aktualnosci.entity';
 
 export enum UserRole {
     ADMIN = "admin",
@@ -64,4 +66,7 @@ export class Pracownicy extends BaseEntity{
         default: StatusValue.ACTIVE
     })
     statusy: StatusValue;
+
+    @OneToMany(type => Aktualnosci, aktualnosci => aktualnosci.pracownicy)
+    aktualnosci: Aktualnosci[];
 }

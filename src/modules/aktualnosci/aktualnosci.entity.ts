@@ -1,5 +1,6 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { BaseEntity, Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Komentarze } from '../komentarze/komentarze.entity';
+import { Pracownicy } from '../pracownicy/pracownicy.entity';
 
 @Entity()
 export class Aktualnosci extends BaseEntity {
@@ -23,4 +24,7 @@ export class Aktualnosci extends BaseEntity {
 
     @OneToMany(type => Komentarze, komentarze => komentarze.aktualnosci)
     komentarze: Komentarze[];
+
+    @ManyToOne(type => Pracownicy, pracownicy => pracownicy.aktualnosci, { eager: true })
+    pracownicy: Pracownicy | number;
 }
