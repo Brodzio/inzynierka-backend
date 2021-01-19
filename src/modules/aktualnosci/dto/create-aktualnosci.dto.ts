@@ -7,6 +7,5 @@ export class CreateAktualnosciDTO {
     @IsNotEmpty()
     opis: string;
 
-    @IsNotEmpty()
     zdjecie: string;
 }

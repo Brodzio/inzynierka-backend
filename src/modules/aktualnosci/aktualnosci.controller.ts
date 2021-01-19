@@ -1,9 +1,11 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UseGuards, UsePipes, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from "@nestjs/common";
 import { AktualnosciService } from "./aktualnosci.service";
 import { Aktualnosci } from './aktualnosci.entity';
 import { CreateAktualnosciDTO } from "./dto/create-aktualnosci.dto";
 import { UpdateAktualnosciDTO } from "./dto/update-aktualnosci.dto";
 import { JwtPracownikAuthGuard } from '../../auth/jwt-pracownik-auth.guards';
+import { FileInterceptor } from "@nestjs/platform-express";
+import { storage } from "src/config/storage.config";
 
 @Controller('news')
 export class AktualnosciController {
@@ -11,11 +13,21 @@ export class AktualnosciController {
 
     @Post()
     @UseGuards(JwtPracownikAuthGuard)
+    @UseInterceptors(
+        FileInterceptor(
+          "file", // name of the field being passed
+          { storage }
+        )
+      )
     @UsePipes(ValidationPipe)
     createAktualnosci(
-        @Body() createAktualnosciDTO: CreateAktualnosciDTO,
+        @UploadedFile() file,
+        @Body() createAktualnosciDTO: any,
     ): Promise<Aktualnosci> {
-        return this.aktualnosciService.createAktualnosci(createAktualnosciDTO);
+        let data: CreateAktualnosciDTO = JSON.parse(createAktualnosciDTO.data);
+        data.zdjecie = file.filename;
+        console.log(data);
+        return this.aktualnosciService.createAktualnosci(data);
     }
 
     @Get()
